@@ -1,0 +1,22 @@
+.nav-text{
+    color: #4B2E2E !important;
+    /* color: #4B2E2E !important; */
+}
+.btn {
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #8B4513;
+    color: white;
+  }
+  .btn:hover i {
+    color: white; /* Change the color of the icon */
+  }
+  
+ul li a{
+    color: #4B2E2E !important;
+    /* color: red !important; */
+
+}
