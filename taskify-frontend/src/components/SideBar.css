@@ -1,0 +1,71 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 170px; /* Expanded width */
+    overflow: hidden;
+    border-right: 2px solid #8B4513;
+    transition: all 0.3s ease-in-out;
+    background-color: #D2B48C;
+    position: fixed;
+    top: 60px; /* Height of the navbar */
+    height: calc(100vh - 60px); /* Full height minus navbar */
+  }
+  
+  .sidebar.collapsed {
+    width: 60px; /* Collapsed width */
+  }
+  
+  .toggle-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #86491e6a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+  }
+  .toggle-btn:hover{
+    background-color: #86491eb7;
+    transform: scale(1.02); 
+    font-size: 20px;
+  }
+  
+  .sidebar-item a {
+    display: block;
+    color: #4B2E2E;
+    padding: 10px ;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .sidebar-item a:hover {
+    background-color: #8B4513;
+    color: white;
+    margin: 10px 15px;
+    border-radius: 5px;
+  }
+  
+  .sidebar.collapsed .sidebar-item a {
+    text-align: center;
+    padding: 7px ;
+    transition: all 0.3s ease-in-out;
+  }
+  .sidebar.collapsed .sidebar-item a:hover {
+    align-items: center;
+    padding: 7px ;
+    margin: 10px;
+  }
+  .divider {
+    height: 1px;
+    background-color: #8B4513;
+    margin: 5px 15px;
+  }
+  
+  /* Icon Sizes for Collapsed Sidebar */
+  .sidebar.collapsed .sidebar-item a .icon {
+    font-size: 24px; /* Larger icon for better visibility */
+  }
+  

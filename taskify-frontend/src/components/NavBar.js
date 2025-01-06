@@ -8,13 +8,13 @@ export class NavBar extends Component {
       <div>
         {/* Light coffee background color */}
         <div style={{ backgroundColor: "#D2B48C" }}>
-          <nav className="navbar mx-3 navbar-expand-lg ">
+          <nav className="navbar mx-3 navbar-expand-lg">
             <div className="container-fluid">
               {/* Navbar brand */}
               <a
                 className="nav-text navbar-brand"
                 href="#"
-                style={{ fontWeight: "bold" }} // Matching text color
+                style={{ fontWeight: "bold" }}
               >
                 Taskify
               </a>
@@ -34,10 +34,10 @@ export class NavBar extends Component {
                 className="collapse navbar-collapse"
                 id="navbarSupportedContent"
               >
-                {/* Navigation links */}
+                {/* Left-aligned links */}
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">
+                    <a className="nav-link" aria-current="page" href="#">
                       Home
                     </a>
                   </li>
@@ -46,13 +46,31 @@ export class NavBar extends Component {
                       Features
                     </a>
                   </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      About
+                    </a>
+                  </li>
                 </ul>
-                <form className="d-flex" role="search">
+
+                {/* Centered search form */}
+                <form
+                  className="d-flex mx-auto"
+                  role="search"
+                  style={{
+                    width: "50%",
+                    maxWidth: "500px",
+                  }}
+                >
                   <input
-                    className="form-control me-2"
+                    className="form-control"
                     type="search"
                     placeholder="Search"
                     aria-label="Search"
+                    style={{
+                      borderTopRightRadius: "0",
+                      borderBottomRightRadius: "0",
+                    }}
                   />
                   <button
                     className="btn"
@@ -61,11 +79,26 @@ export class NavBar extends Component {
                       color: "#8B4513",
                       border: "2px solid",
                       borderColor: "#8B4513",
+                      backgroundColor: "transparent",
                     }}
                   >
                     <i className="bi bi-search"></i>
                   </button>
                 </form>
+
+                {/* Right-aligned links */}
+                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Login
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="#">
+                      Register
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </nav>

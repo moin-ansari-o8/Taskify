@@ -2,21 +2,35 @@
     color: #4B2E2E !important;
     /* color: #4B2E2E !important; */
 }
+
+  
 .btn {
-    background-color: transparent;
-    transition: background-color 0.3s ease;
+    
+    transition: background-color 0.3s ease !important;
   }
   
   .btn:hover {
-    background-color: #8B4513;
-    color: white;
+    background-color: #8B4513 !important;
+    color: white !important;
   }
   .btn:hover i {
     color: white; /* Change the color of the icon */
   }
   
-ul li a{
-    color: #4B2E2E !important;
-    /* color: red !important; */
-
-}
+  .nav-item a {
+    display: block;
+    color: #4B2E2E !important; /* Ensure the default text color */
+    margin: 5px 10px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+    padding: 5px 15px; /* Fixed padding to avoid height changes */
+  }
+  
+  .nav-item a:hover {
+    background-color: #8B4513 !important;
+    color: white !important; /* Force the hover text color */
+    border-radius: 5px;
+    transform: scale(1.1); /* Slight zoom effect */
+  }
+  
+  
