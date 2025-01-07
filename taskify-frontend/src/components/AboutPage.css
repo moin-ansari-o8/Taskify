@@ -1,0 +1,9 @@
+.carousel-item .card {
+    height: 100px; /* Set the height here */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+   /* .about-us{
+    margin-left: 20px;
+   } */

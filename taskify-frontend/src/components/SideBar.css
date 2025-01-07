@@ -1,71 +1,74 @@
 /* Sidebar Styles */
 .sidebar {
-    width: 120px; /* Expanded width */
+    width: 130px; /* Expanded width */
     overflow: hidden;
-    border-right: 2px solid #8B4513;
+    border-right: 2px solid #4b0082; /* Indigo border */
     transition: all 0.3s ease-in-out;
-    background-color: #D2B48C;
+    background: linear-gradient(180deg, #6a11cb, #2575fc); /* Purple to blue gradient */
     position: fixed;
     top: 60px; /* Height of the navbar */
     height: calc(100vh - 60px); /* Full height minus navbar */
-  }
-  
-  .sidebar.collapsed {
+    color:rgb(242, 215, 118);
+}
+
+.sidebar.collapsed {
     width: 60px; /* Collapsed width */
-  }
-  
-  .toggle-btn {
+}
+
+.toggle-btn {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 10px; /* Keep it at the top */
+    left: 50%; /* Center horizontally in the sidebar */
+    transform: translateX(-50%); /* Adjust to truly center the button horizontally */
     width: 40px;
     height: 40px;
-    background-color: #86491e6a;
-    color: white;
+    background: linear-gradient(45deg, #8937e1, #2575fc); /* Button gradient */
+    color: rgb(242, 215, 118);
     border: none;
-    border-radius: 4px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.1 s ease-in-out;
-  }
-  .toggle-btn:hover{
-    background-color: #86491eb7;
-    transform: scale(1.02); 
-    font-size: 20px;
-  }
-  
-  .sidebar-item a {
+    transition: all 0.3s ease-in-out;
+}
+
+.toggle-btn:hover {
+    background: linear-gradient(45deg, #2575fc, #8937e1); /* Reverse gradient on hover */
+    transform: translateX(-50%) scale(1.1); /* Maintain horizontal centering on hover */
+}
+
+
+.sidebar-item a {
+    
+    border-radius: 5px;
+
     display: block;
-    color: #4B2E2E;
+    color:rgb(242, 215, 118);
     padding: 10px ;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
-  }
-  
-  .sidebar-item a:hover {
-    background-color: #8B4513;
-    color: white;
-    margin: 10px 15px;
+}
+.sidebar-item a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Add a transparent hover effect */
+    
+    margin: 10px ;
     border-radius: 5px;
-  }
-  
-  .sidebar.collapsed .sidebar-item a {
+    transform: scale(1.02);
+}
+
+.sidebar.collapsed .sidebar-item a {
     text-align: center;
-    padding: 7px ;
+    padding: 7px;
+    font-size: large;
     transition: all 0.3s ease-in-out;
-  }
-  .sidebar.collapsed .sidebar-item a:hover {
+    color:rgb(242, 215, 118);
+}
+.sidebar.collapsed .sidebar-item a:hover {
     align-items: center;
     padding: 7px ;
     margin: 10px;
+    transform: scale(1.02);
   }
-  .divider {
+.divider {
     height: 1px;
-    background-color: #8B4513;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent divider */
     margin: 5px 15px;
-  }
-  
-  /* Icon Sizes for Collapsed Sidebar */
-  .sidebar.collapsed .sidebar-item a .icon {
-    font-size: 24px; /* Larger icon for better visibility */
-  }
-  
+}

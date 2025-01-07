@@ -1,36 +1,41 @@
-.nav-text{
-    color: #4B2E2E !important;
-    /* color: #4B2E2E !important; */
+.navbar {
+    background: linear-gradient(90deg, #8e2de2, #4a00e0); /* Horizontal purple gradient */
+    /* border-bottom: 2px solid #4b0082; Match sidebar */
 }
 
-  
-.btn {
-    
-    transition: background-color 0.3s ease !important;
-  }
-  
-  .btn:hover {
-    background-color: #8B4513 !important;
-    color: white !important;
-  }
-  .btn:hover i {
-    color: white; /* Change the color of the icon */
-  }
-  
-  .nav-item a {
-    display: block;
-    color: #4B2E2E !important; /* Ensure the default text color */
-    margin: 5px 10px;
+.nav-text {
+    color: rgb(242, 215, 118) !important; /* White text for contrast */
+}
+
+.nav-item a {
+    color: rgb(242, 215, 118) !important;
     text-decoration: none;
-    transition: all 0.3s ease-in-out; /* Smooth transition */
-    padding: 5px 15px; /* Fixed padding to avoid height changes */
-  }
-  
-  .nav-item a:hover {
-    background-color: #8B4513 !important;
-    color: white !important; /* Force the hover text color */
+    margin: 5px 10px;
+    padding: 5px 15px;
     border-radius: 5px;
-    transform: scale(1.1); /* Slight zoom effect */
-  }
-  
-  
+    transition: all 0.3s ease-in-out;
+}
+.nav-item a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Add semi-transparent hover effect */
+    color: rgb(242, 215, 118) !important;
+    transform: scale(1.1); /* Slight zoom */
+}
+
+.btn {
+    background: linear-gradient(45deg, #8937e1, #2575fc); /* Button gradient */
+    color: rgb(242, 215, 118) !important;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn:hover {
+    color: rgb(242, 215, 118) !important;
+ 
+
+    background: linear-gradient(45deg, #2575fc, #8937e1); /* Reverse gradient on hover */
+    transform: translateX(-5%) scale(1.1); /* Maintain horizontal centering on hover */
+}

@@ -7,7 +7,7 @@ import { BsCheckCircle } from "react-icons/bs"; // Tasks icon
 import "./SideBar.css";
 
 const SideBar = ({ isCollapsed, toggleSidebar }) => {
-  const renderItem = (name, icon) => {
+  const renderItem = (name, icon, isDivider = "dvd") => {
     return (
       <li className="sidebar-item">
         <a href="#">
@@ -21,7 +21,8 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
             </>
           )}
         </a>
-        <div className="divider"></div>
+        {/* Conditional rendering for divider */}
+        {isDivider === "dvd" && <div className="divider"></div>}
       </li>
     );
   };
@@ -33,7 +34,7 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
         transition: "width 0.3s ease", // Smooth width transition
       }}
     >
-      <button className="toggle-btn" onClick={toggleSidebar}>
+      <button className="toggle-btn " onClick={toggleSidebar}>
         <strong>&#x2630;</strong>
         {/* <img src={logo} alt="toggle" width="30" height="24" /> */}
       </button>
@@ -42,13 +43,13 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
         style={{
           listStyle: "none",
           padding: "0",
-          margin: "60px 0 0 0",
+          margin: "80px 0 0 0",
         }}
       >
         {renderItem("Dashboard", <IoMdGrid />)}
         {renderItem("Boards", <AiOutlineAppstore />)}
         {renderItem("Tasks", <BsCheckCircle />)}
-        {renderItem("Settings", <FaCog />)}
+        {renderItem("Settings", <FaCog />, "dvd-not")}
       </ul>
     </div>
   );
