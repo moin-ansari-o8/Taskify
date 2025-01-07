@@ -1,6 +1,6 @@
+/* Navbar Styles */
 .navbar {
-    background: linear-gradient(90deg, #8e2de2, #4a00e0); /* Horizontal purple gradient */
-    /* border-bottom: 2px solid #4b0082; Match sidebar */
+    background: linear-gradient(135deg, #6B4F3B, #C8B19A); /* Coffee brown gradient */
 }
 
 .nav-text {
@@ -15,27 +15,49 @@
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
+
 .nav-item a:hover {
-    background: rgba(255, 255, 255, 0.2); /* Add semi-transparent hover effect */
+    background: #5B3A29; /* Hover effect *//* Add semi-transparent hover effect */
     color: rgb(242, 215, 118) !important;
     transform: scale(1.1); /* Slight zoom */
 }
 
+/* Button Styles */
 .btn {
-    background: linear-gradient(45deg, #8937e1, #2575fc); /* Button gradient */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Coffee brown button gradient */
     color: rgb(242, 215, 118) !important;
     padding: 10px 20px;
     border: none;
     border-radius: 3px;
-    border-top-left-radius: 0%;
-    border-bottom-left-radius: 0%;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
+
 .btn:hover {
     color: rgb(242, 215, 118) !important;
- 
-
-    background: linear-gradient(45deg, #2575fc, #8937e1); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #5B3A29, #8C4F30); /* Reverse coffee gradient on hover */
     transform: translateX(-5%) scale(1.1); /* Maintain horizontal centering on hover */
+}
+/* Only apply the styles to Login and Register links */
+.nav-item .login-register {
+    color: rgb(242, 215, 118) !important; /* Text color */
+    text-decoration: none;
+    margin: 5px 10px;
+    padding: 5px 15px;
+    border-radius: 5px;
+    border: 2px solid ; /* Set initial border */
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-item .login-register:hover {
+    background: #8C4F30; /* Hover effect */
+    color: rgb(242, 215, 118) !important;
+    transform: scale(1.1); /* Slight zoom */
+    /* border: 2px solid #8C4F30; Add coffee border color on hover */
+}
+
+/* Optional: Remove default focus outline */
+.nav-item .login-register:focus, .nav-item .login-register:hover {
+    outline: none; /* Remove any default outline on focus */
+    border: 2px solid #8C4F30; /* Coffee brown border on hover */
 }

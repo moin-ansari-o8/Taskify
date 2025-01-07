@@ -7,7 +7,7 @@
   }
   
   .content.sidebar-collapsed {
-    margin-left: 55px;
+    margin-left: 60px;
     width: calc(100% - 50px); /* Adjust width for collapsed sidebar */
   }
   
@@ -25,4 +25,34 @@
     display: flex;
     flex-direction: column;
   }
-  
+ 
+css
+Copy code
+/* App.css */
+
+/* General background color for all pages */
+body {
+    background: linear-gradient(135deg, #C2A99F, #D6BFA7); /* Coffee light gradient */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Background for content area */
+.content {
+    background: linear-gradient(135deg, #F4E1D2, #E2C5A3); /* Light coffee cream gradient */
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* Specific page styles (optional) */
+
+/* HomePage-specific background color */
+.homepage .content {
+    background: linear-gradient(135deg, #F4E1D2, #E2C5A3); /* Light coffee cream gradient */
+}
+
+/* AboutPage-specific background color */
+.aboutpage .content {
+    background: linear-gradient(135deg, #D6BFA7, #F4E1D2); /* Slightly darker coffee cream gradient */
+}

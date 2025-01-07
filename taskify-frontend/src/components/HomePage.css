@@ -46,12 +46,6 @@
     color: rgb(242, 215, 118); /* Matching text color for contrast */
 }
 
-/* Hover effect for cards */
-.card:hover {
-    background: linear-gradient(90deg, #4a00e0, #8e2de2); /* Reverse gradient on hover */
-    transform: scale(1.05); /* Slight zoom effect on hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
-}
 
 .card-title {
     color: rgb(242, 215, 118); /* Title color */

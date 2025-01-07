@@ -5,7 +5,10 @@ const AboutPage = () => {
   return (
     <div className="about-us">
       {/* Header Section */}
-      <div className="bg-primary text-white text-center py-5">
+      <div
+        className="bg-primary text-white text-center py-5"
+        style={{ marginTop: "55px", borderRadius: "5px" }}
+      >
         <h1 className="display-4">About Taskify</h1>
         <p className="lead">
           The smart, simple, and intuitive way to manage your tasks and boost
@@ -27,7 +30,12 @@ const AboutPage = () => {
         </p>
         <div className="row">
           <div className="col-md-6 mb-4">
-            <div className="card">
+            <div
+              className="card"
+              style={{
+                background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+              }}
+            >
               <img
                 src="https://via.placeholder.com/500x300"
                 alt="Our Story"
@@ -36,7 +44,12 @@ const AboutPage = () => {
             </div>
           </div>
           <div className="col-md-6 mb-4">
-            <div className="card p-3">
+            <div
+              className="card p-3"
+              style={{
+                background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+              }}
+            >
               <p>
                 Taskify is the result of countless hours of research,
                 development, and testing. From the beginning, we set out to
@@ -72,7 +85,13 @@ const AboutPage = () => {
           <div className="carousel-inner">
             {/* First Item */}
             <div className="carousel-item active">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Simplicity First</h3>
                 <p>
                   Taskify is built around the principle of simplicity. We
@@ -85,7 +104,13 @@ const AboutPage = () => {
 
             {/* Second Item */}
             <div className="carousel-item">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Collaboration at its Core</h3>
                 <p>
                   Collaboration is key to success in any project. With Taskify,
@@ -97,7 +122,13 @@ const AboutPage = () => {
 
             {/* Third Item */}
             <div className="carousel-item">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Productivity Boost</h3>
                 <p>
                   We believe that productivity is the key to success. By
@@ -157,7 +188,13 @@ const AboutPage = () => {
           <div className="carousel-inner">
             {/* First Item */}
             <div className="carousel-item active">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Empowering Individuals</h3>
                 <p>
                   We believe in empowering individuals to take control of their
@@ -170,7 +207,13 @@ const AboutPage = () => {
 
             {/* Second Item */}
             <div className="carousel-item">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Transforming Team Collaboration</h3>
                 <p>
                   We aim to transform the way teams collaborate on projects.
@@ -182,7 +225,13 @@ const AboutPage = () => {
 
             {/* Third Item */}
             <div className="carousel-item">
-              <div className="card p-3" style={{ height: "300px" }}>
+              <div
+                className="card p-3"
+                style={{
+                  height: "300px",
+                  background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                }}
+              >
                 <h3 className="mb-3">Leading the Future of Task Management</h3>
                 <p>
                   Taskify is constantly evolving. We are committed to leading
@@ -219,55 +268,6 @@ const AboutPage = () => {
             ></span>
             <span className="visually-hidden">Next</span>
           </button>
-        </div>
-      </div>
-
-      {/* Our Values Section */}
-      <div className="container my-5">
-        <h2 className="text-left mb-2">Our Values</h2>
-        <hr style={{ width: "40%", marginLeft: "0" }} />
-        <p className="text-left mb-5">
-          The values we hold at Taskify guide everything we do. They help us
-          make decisions, build relationships, and deliver a product that our
-          users love.
-        </p>
-        <div className="row">
-          <div className="col-md-3 mb-4">
-            <div className="card p-3">
-              <h4>Innovation</h4>
-              <p>
-                We strive to push the boundaries of what’s possible and create
-                new solutions to old problems.
-              </p>
-            </div>
-          </div>
-          <div className="col-md-3 mb-4">
-            <div className="card p-3">
-              <h4>Integrity</h4>
-              <p>
-                We are committed to being honest, transparent, and ethical in
-                all of our interactions.
-              </p>
-            </div>
-          </div>
-          <div className="col-md-3 mb-4">
-            <div className="card p-3">
-              <h4>Customer-Centric</h4>
-              <p>
-                We put our users first, ensuring that Taskify delivers value and
-                meets the needs of our diverse customer base.
-              </p>
-            </div>
-          </div>
-          <div className="col-md-3 mb-4">
-            <div className="card p-3">
-              <h4>Collaboration</h4>
-              <p>
-                We value collaboration, teamwork, and sharing knowledge to
-                achieve collective success.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

@@ -4,6 +4,27 @@
     flex-direction: column;
     justify-content: center;
   }
-   /* .about-us{
-    margin-left: 20px;
-   } */
+  .card {
+    background: linear-gradient(45deg, #8C4F30, #5B3A29);
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .card p {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .card {
+    pointer-events: none;
+  }
+  
+  .card .card-body {
+    pointer-events: auto; /* Allow interaction with inner content */
+  }

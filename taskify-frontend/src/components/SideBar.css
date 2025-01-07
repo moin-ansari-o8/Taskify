@@ -2,13 +2,13 @@
 .sidebar {
     width: 130px; /* Expanded width */
     overflow: hidden;
-    border-right: 2px solid #4b0082; /* Indigo border */
+    border-right: 1px solid #5B3A29; /* Indigo border */
     transition: all 0.3s ease-in-out;
-    background: linear-gradient(180deg, #6a11cb, #2575fc); /* Purple to blue gradient */
+    background: linear-gradient(135deg, #6B4F3B, #C8B19A); /* Coffee brown gradient */
     position: fixed;
     top: 60px; /* Height of the navbar */
     height: calc(100vh - 60px); /* Full height minus navbar */
-    color:rgb(242, 215, 118);
+    color: rgb(242, 215, 118);
 }
 
 .sidebar.collapsed {
@@ -22,7 +22,7 @@
     transform: translateX(-50%); /* Adjust to truly center the button horizontally */
     width: 40px;
     height: 40px;
-    background: linear-gradient(45deg, #8937e1, #2575fc); /* Button gradient */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Button gradient */
     color: rgb(242, 215, 118);
     border: none;
     border-radius: 50%;
@@ -31,25 +31,22 @@
 }
 
 .toggle-btn:hover {
-    background: linear-gradient(45deg, #2575fc, #8937e1); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #5B3A29, #8C4F30); /* Reverse gradient on hover */
     transform: translateX(-50%) scale(1.1); /* Maintain horizontal centering on hover */
 }
 
-
 .sidebar-item a {
-    
     border-radius: 5px;
-
     display: block;
-    color:rgb(242, 215, 118);
-    padding: 10px ;
+    color: rgb(242, 215, 118);
+    padding: 10px;
     text-decoration: none;
     transition: all 0.3s ease-in-out;
 }
+
 .sidebar-item a:hover {
-    background: rgba(255, 255, 255, 0.2); /* Add a transparent hover effect */
-    
-    margin: 10px ;
+    background: #5B3A29; /* Add a transparent hover effect */
+    margin: 10px;
     border-radius: 5px;
     transform: scale(1.02);
 }
@@ -58,17 +55,18 @@
     text-align: center;
     padding: 7px;
     font-size: large;
-    transition: all 0.3s ease-in-out;
-    color:rgb(242, 215, 118);
+    color: rgb(242, 215, 118);
 }
+
 .sidebar.collapsed .sidebar-item a:hover {
     align-items: center;
-    padding: 7px ;
+    padding: 7px;
     margin: 10px;
     transform: scale(1.02);
-  }
+}
+
 .divider {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent divider */
+    background-color: #743f24; /* Semi-transparent divider */
     margin: 5px 15px;
 }

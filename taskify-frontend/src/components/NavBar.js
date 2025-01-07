@@ -18,9 +18,9 @@ export class NavBar extends Component {
                 href="/homepage"
                 style={{
                   fontWeight: "bold",
-                  fontSize: "1rem", // Adjusts the font size
+                  fontSize: "17px", // Adjusts the font size
                   fontFamily: "'Pacifico', cursive", // Cursive font
-                  background: "linear-gradient(to right, #6a11cb, #2575fc)", // Adds a gradient background
+                  background: "linear-gradient(to right, #6B4F3B, #C8B19A)", // Adds a gradient background
                   color: "#fff", // Sets the text color to white for contrast
                   padding: "10px 20px", // Adds padding around the text
                   borderRadius: "5px", // Rounds the corners of the background
@@ -97,12 +97,12 @@ export class NavBar extends Component {
                 {/* Right-aligned links */}
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <Link className="nav-link" to="/login">
+                    <Link className="nav-link login-register" to="/login">
                       Login
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/signup">
+                    <Link className="nav-link login-register" to="/signup">
                       Register
                     </Link>
                   </li>
