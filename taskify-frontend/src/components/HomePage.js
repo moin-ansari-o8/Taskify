@@ -5,7 +5,13 @@ const HomePage = () => {
   return (
     <div className="homepage">
       {/* Hero Section */}
-      <div className="bg-primary text-white text-center py-5">
+      <div
+        className="bg-dark text-white text-center py-5"
+        style={{
+          background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+          marginTop: "55px",
+        }}
+      >
         <h1 className="display-4">
           Taskify: Streamline Your Tasks and Boost Productivity
         </h1>

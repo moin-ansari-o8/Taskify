@@ -16,6 +16,10 @@
     border-radius: 8px;
   }
   
+.hdr{
+    background: linear-gradient(45deg, #8C4F30, #5B3A29) !important;   
+}
+
   .card p {
     color: #fff;
     font-size: 1rem;

@@ -1,6 +1,6 @@
 /* Button styling */
 .btn-signup {
-    background: linear-gradient(45deg, #8937e1, #2575fc); /* Button gradient */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Button gradient */
     color: rgb(242, 215, 118) !important;
     padding: 10px 20px;
     border: none;
@@ -13,17 +13,19 @@
 
 .btn-signup:hover {
     color: rgb(242, 215, 118) !important;
-    background: linear-gradient(45deg, #2575fc, #8937e1); /* Reverse gradient on hover */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Reverse gradient on hover */
     transform: scale(1.1); /* Slight zoom effect on hover */
 }
 
 /* Card styling */
 .card-feature {
-    background: linear-gradient(90deg, #8e2de2, #4a00e0); /* Card gradient */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Card gradient */
     color: rgb(242, 215, 118); /* Text color */
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
-
+.hdr{
+    
+}
 .card-feature .card-title {
     color: rgb(242, 215, 118);
     transition: color 0.3s ease;
@@ -35,7 +37,7 @@
 
 /* Apply gradient background to cards */
 .card {
-    background: linear-gradient(90deg, #8e2de2, #4a00e0); /* Same gradient as navbar */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Same gradient as navbar */
     border-radius: 5px;
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to cards */
