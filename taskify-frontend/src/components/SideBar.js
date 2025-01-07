@@ -28,7 +28,7 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
 
   return (
     <div
-      className={`sidebar ${isCollapsed ? "collapsed" : ""}`}
+      className={`sidebar ${isCollapsed ? "collapsed" : ""} text-center`}
       style={{
         transition: "width 0.3s ease", // Smooth width transition
       }}

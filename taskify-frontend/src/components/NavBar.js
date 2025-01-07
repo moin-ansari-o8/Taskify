@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+import { Link } from "react-router-dom"; // Import Link for routing
 import "./NavBar.css";
 import "./bootstrap-icons/font/bootstrap-icons.css";
 
@@ -37,22 +39,21 @@ export class NavBar extends Component {
                 {/* Left-aligned links */}
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <a className="nav-link" aria-current="page" href="#">
+                    <Link className="nav-link" to="/homepage">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <Link className="nav-link" to="/features">
                       Features
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <Link className="nav-link" to="/about">
                       About
-                    </a>
+                    </Link>
                   </li>
                 </ul>
-
                 {/* Centered search form */}
                 <form
                   className="d-flex mx-auto"
@@ -89,14 +90,14 @@ export class NavBar extends Component {
                 {/* Right-aligned links */}
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <Link className="nav-link" to="/login">
                       Login
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
+                    <Link className="nav-link" to="/signup">
                       Register
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

@@ -2,13 +2,13 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import SideBar from "./components/SideBar";
 import { useState } from "react"; // Import useState for managing sidebar state
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"; // Use Routes instead of Switch
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+// Import pages (components for each page)
+import HomePage from "./components/HomePage";
+// import FeaturesPage from "./components/FeaturesPage";
+import AboutPage from "./components/AboutPage";
 
-// Import pages
-import HomePage from "./HomePage";
-import AboutPage from "./AboutPage";
-import ContactPage from "./ContactPage";
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -17,21 +17,32 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <NavBar />
-      <SideBar isCollapsed={isSidebarCollapsed} toggleSidebar={toggleSidebar} />
-      {/* Main content area */}
-      <div
-        style={{
-          marginLeft: isSidebarCollapsed ? "70px" : "180px", // Adjust margin based on sidebar state
-          padding: "20px",
-          transition: "margin-left 0.3s ease", // Smooth transition for content movement
-        }}
-      >
-        <h1>Welcome to Taskify</h1>
-        <p>Start organizing your tasks here!</p>
+    <Router>
+      <div className="App">
+        {/* The NavBar is common across all pages */}
+        <NavBar />
+        <SideBar
+          isCollapsed={isSidebarCollapsed}
+          toggleSidebar={toggleSidebar}
+        />
+
+        {/* Main content area */}
+        <div
+          style={{
+            marginLeft: isSidebarCollapsed ? "70px" : "180px", // Adjust margin based on sidebar state
+            padding: "20px",
+            transition: "margin-left 0.3s ease", // Smooth transition for content movement
+          }}
+        >
+          <Routes>
+            {/* Define your routes here */}
+            <Route path="/" element={<HomePage />} />
+            {/* <Route path="/features" element={<FeaturesPage />} /> */}
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

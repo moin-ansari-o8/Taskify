@@ -1,6 +1,6 @@
 /* Sidebar Styles */
 .sidebar {
-    width: 170px; /* Expanded width */
+    width: 120px; /* Expanded width */
     overflow: hidden;
     border-right: 2px solid #8B4513;
     transition: all 0.3s ease-in-out;
@@ -25,7 +25,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.1 s ease-in-out;
   }
   .toggle-btn:hover{
     background-color: #86491eb7;
