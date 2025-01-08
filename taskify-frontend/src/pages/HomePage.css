@@ -23,9 +23,7 @@
     color: rgb(242, 215, 118); /* Text color */
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
-.hdr{
-    
-}
+
 .card-feature .card-title {
     color: rgb(242, 215, 118);
     transition: color 0.3s ease;

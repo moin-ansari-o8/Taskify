@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-
 import { Link } from "react-router-dom"; // Import Link for routing
-import "./NavBar.css";
+// import "./NavBar.css";
 import "./bootstrap-icons/font/bootstrap-icons.css";
+import NotificationBell from "./NotificationBell";
 
 export class NavBar extends Component {
   render() {
@@ -13,9 +13,9 @@ export class NavBar extends Component {
           <nav className="navbar navbar-expand-lg fixed-top">
             <div className="container-fluid">
               {/* Navbar brand */}
-              <a
+              <Link
                 className="nav-text mx-2 navbar-brand"
-                href="/homepage"
+                to="/homepage"
                 style={{
                   fontWeight: "bold",
                   fontSize: "17px", // Adjusts the font size
@@ -32,7 +32,7 @@ export class NavBar extends Component {
                 // onMouseLeave={(e) => (e.target.style.transform = "scale(1)")} // Resets hover effect
               >
                 Taskify
-              </a>
+              </Link>
 
               {/* Hamburger button for small screens */}
               <button
@@ -58,8 +58,8 @@ export class NavBar extends Component {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" to="/features">
-                      Features
+                    <Link className="nav-link" to="/about">
+                      Starred &#9733;
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -89,7 +89,7 @@ export class NavBar extends Component {
                       borderBottomLeftRadius: "3px",
                     }}
                   />
-                  <button className="btn" type="submit">
+                  <button className="btn srch" type="submit">
                     <i className="bi bi-search"></i>
                   </button>
                 </form>
@@ -97,13 +97,23 @@ export class NavBar extends Component {
                 {/* Right-aligned links */}
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                   <li className="nav-item">
-                    <Link className="nav-link login-register" to="/login">
-                      Login
+                    <Link className="nav-link" to="/about">
+                      Notification <NotificationBell />
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/about">
+                      Account
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link login-register" to="/signin">
+                      Sign In
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link login-register" to="/signup">
-                      Register
+                      Sign Up
                     </Link>
                   </li>
                 </ul>

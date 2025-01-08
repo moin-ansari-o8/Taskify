@@ -7,23 +7,22 @@ import {
   Route,
   Routes,
   useLocation,
-} from "react-router-dom"; // Use Routes instead of Switch
+} from "react-router-dom";
 
 // Import pages (components for each page)
-import HomePage from "./components/HomePage";
-// import FeaturesPage from "./components/FeaturesPage";
-import AboutPage from "./components/AboutPage";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import Dashboard from "./pages/Dashboard"; // Import the Dashboard component
+import SignUpForm from "./pages/SignUpForm";
 
-// Separate component to handle the layout
 function Layout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const location = useLocation(); // Hook to get the current location
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  // Determine dynamic class for the content area
   const contentClass =
     location.pathname === "/"
       ? "content no-sidebar" // No sidebar on the homepage
@@ -33,22 +32,22 @@ function Layout() {
 
   return (
     <div className="App">
-      {/* The NavBar is common across all pages */}
       <NavBar />
-
-      {/* Conditionally render the SideBar */}
       {location.pathname !== "/" && (
         <SideBar
           isCollapsed={isSidebarCollapsed}
           toggleSidebar={toggleSidebar}
         />
       )}
-
-      {/* Main content area */}
       <div className={contentClass}>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/homepage" element={<Dashboard />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/signup" element={<SignUpForm />} />
+          <Route path="/signin" element={<AboutPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />{" "}
+          {/* Add Dashboard */}
         </Routes>
       </div>
     </div>

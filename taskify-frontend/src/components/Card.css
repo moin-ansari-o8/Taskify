@@ -1,0 +1,43 @@
+.cardD-container {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    background: linear-gradient(135deg, rgb(146, 113, 89), #C8B19A);
+    width: 250px;
+    margin: 10px auto; /* Center horizontally within the parent */
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    height: 150px;
+  }
+  
+  .cardD-container:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 15px; /* Add space between the circle and title */
+    color: rgb(242, 215, 118) !important;
+  }
+  
+  .circle {
+    width: 50px; /* Adjust size */
+    height: 50px; /* Adjust size */
+    border-radius: 50%;
+    background: linear-gradient(45deg, #8C4F30, #5B3A29);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 15px; /* Center and add space below */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 35px;
+    color: rgb(242, 215, 118) !important;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+ 

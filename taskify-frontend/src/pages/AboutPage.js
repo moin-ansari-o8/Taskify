@@ -1,12 +1,12 @@
 import React from "react";
-import "./AboutPage.css";
+// import "./AboutPage.css";
 
 const AboutPage = () => {
   return (
     <div className="about-us">
       {/* Header Section */}
       <div
-        className="bg-primary text-white text-center py-5"
+        className="hdr text-white text-center py-5"
         style={{ marginTop: "55px", borderRadius: "5px" }}
       >
         <h1 className="display-4">About Taskify</h1>
