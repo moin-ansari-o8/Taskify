@@ -58,7 +58,7 @@
 }
 
 /* Optional: Remove default focus outline */
-.nav-item .login-register:focus, .nav-item .login-register:hover {
-    outline: none; /* Remove any default outline on focus */
-    border: 2px solid #8C4F30; /* Coffee brown border on hover */
-}
+/* .nav-item .login-register:focus, .nav-item .login-register:hover { */
+    /* outline: none; Remove any default outline on focus */
+    /* border: 2px solid #8C4F30; Coffee brown border on hover */
+/* } */

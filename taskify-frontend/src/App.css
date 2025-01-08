@@ -92,12 +92,37 @@ h1, h2, h3, h4, h5, h6, p {
     border-radius: 5px;
     transform: scale(1.02);
 }
+.divider {
+    height: 1px;
+    background-color: #743f24; /* Semi-transparent divider */
+    margin: 5px 15px;
+}
 
 /* Navbar Styles */
 .navbar {
     background: linear-gradient(135deg, #6B4F3B, #C8B19A); /* Coffee brown gradient */
+    height: 60px; /* Set a fixed height for the navbar */
+  padding: 0; /* Remove any extra padding */
 }
-
+.form-control{
+    height: 40px; /* Match the height of the input with the button */
+  font-size: 14px; 
+  
+}
+.nav-srch{
+    margin-top:20px;
+    width: 40%;
+}
+.srch{
+    padding: 5px; /* Reduce the padding to make the button smaller */
+  font-size: 15px; /* Adjust the font size for the search icon */
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  height: 40px; /* Set a fixed height for the button */
+  line-height: 10px;
+  /* margin-top:20px; */
+}
 .nav-text {
     color: rgb(242, 215, 118) !important;
 }
@@ -114,9 +139,21 @@ h1, h2, h3, h4, h5, h6, p {
 .nav-item a:hover {
     background: #5B3A29;
     color: rgb(242, 215, 118) !important;
-    transform: scale(1.1);
+    /* transform: scale(1.1); */
 }
-
+.nav-item .outline {
+    color: rgb(242, 215, 118) !important; /* Text color */
+    
+    border-radius: 5px;
+    border: 2px solid ; /* Set initial border */
+    /* transition: all 0.3s ease-in-out; */
+}
+.nav-item .outline:hover {
+    background: #8C4F30; /* Hover effect */
+    color: rgb(242, 215, 118) !important;
+    /* transform: scale(1.1);  */
+    border: 2px solid #8C4F30; 
+}
 /* Button Styles */
 .btn {
     background: linear-gradient(45deg, #8C4F30, #5B3A29);
@@ -130,7 +167,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .btn:hover {
     background: linear-gradient(45deg, #5B3A29, #8C4F30);
-    transform: translateX(-5%) scale(1.1);
+    transform: scale(1.05);
 }
 
 /* Signup Page */
@@ -210,7 +247,7 @@ button.signup-btn:hover {
     font-size: 20px;
     font-weight: 600;
     margin-top: 15px;
-    color: rgb(242, 215, 118) !important;
+    color: rgb(139, 69, 45) !important;
 }
 
 .circle {
@@ -263,4 +300,5 @@ button.signup-btn:hover {
     display: flex;
     gap: 30px;
     justify-content: center;
+    
 }

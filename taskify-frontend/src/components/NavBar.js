@@ -69,30 +69,32 @@ export class NavBar extends Component {
                   </li>
                 </ul>
                 {/* Centered search form */}
-                <form
-                  className="d-flex mx-auto"
-                  role="search"
-                  style={{
-                    width: "50%",
-                    maxWidth: "500px",
-                  }}
-                >
-                  <input
-                    className="form-control"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
+                <div class="nav-srch">
+                  <form
+                    className="d-flex mx-auto"
+                    role="search"
                     style={{
-                      borderTopLeftRadius: "3px",
-                      borderTopRightRadius: "0",
-                      borderBottomRightRadius: "0",
-                      borderBottomLeftRadius: "3px",
+                      width: "50%",
+                      maxWidth: "500px",
                     }}
-                  />
-                  <button className="btn srch" type="submit">
-                    <i className="bi bi-search"></i>
-                  </button>
-                </form>
+                  >
+                    <input
+                      className="form-control"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                      style={{
+                        borderTopLeftRadius: "3px",
+                        borderTopRightRadius: "0",
+                        borderBottomRightRadius: "0",
+                        borderBottomLeftRadius: "3px",
+                      }}
+                    />
+                    <button className="btn srch " type="submit">
+                      <i className="bi bi-search"></i>
+                    </button>
+                  </form>
+                </div>
 
                 {/* Right-aligned links */}
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -101,18 +103,18 @@ export class NavBar extends Component {
                       Notification <NotificationBell />
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/about">
+                  <li className="nav-item outline">
+                    <Link className="nav-link outline" to="/about">
                       Account
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link login-register" to="/signin">
+                    <Link className="nav-link outline" to="/signin">
                       Sign In
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link login-register" to="/signup">
+                    <Link className="nav-link outline" to="/signup">
                       Sign Up
                     </Link>
                   </li>
