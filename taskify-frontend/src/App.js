@@ -14,26 +14,30 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import Dashboard from "./pages/Dashboard"; // Import the Dashboard component
 import SignUpForm from "./pages/SignUpForm";
+import SignInForm from "./pages/SignInForm";
 
 function Layout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const location = useLocation();
-
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
-  const contentClass =
-    location.pathname === "/"
-      ? "content no-sidebar" // No sidebar on the homepage
-      : isSidebarCollapsed
-      ? "content sidebar-collapsed" // Collapsed sidebar
-      : "content sidebar-expanded"; // Sidebar expanded
+  // Pages where sidebar and specific navbar buttons should not appear
+  const noSidebarRoutes = ["/homepage", "/signin", "/signup"];
+
+  const contentClass = noSidebarRoutes.includes(location.pathname)
+    ? "content no-sidebar" // No sidebar
+    : isSidebarCollapsed
+    ? "content sidebar-collapsed" // Collapsed sidebar
+    : "content sidebar-expanded"; // Sidebar expanded
 
   return (
     <div className="App">
-      <NavBar />
-      {location.pathname !== "/" && (
+      {/* Pass current route to NavBar */}
+      <NavBar hideButtons={noSidebarRoutes.includes(location.pathname)} />
+      {/* Conditionally render the sidebar */}
+      {!noSidebarRoutes.includes(location.pathname) && (
         <SideBar
           isCollapsed={isSidebarCollapsed}
           toggleSidebar={toggleSidebar}
@@ -41,13 +45,12 @@ function Layout() {
       )}
       <div className={contentClass}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/homepage" element={<Dashboard />} />
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route path="/signin" element={<AboutPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />{" "}
-          {/* Add Dashboard */}
+          <Route path="/signin" element={<SignInForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </div>
     </div>

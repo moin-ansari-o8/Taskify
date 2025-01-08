@@ -1,80 +1,94 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom"; // Import Link for routing
-// import "./NavBar.css";
+import { Link, useLocation } from "react-router-dom"; // Import Link and useLocation
 import "./bootstrap-icons/font/bootstrap-icons.css";
 import NotificationBell from "./NotificationBell";
 
-export class NavBar extends Component {
+// Wrapper to pass location to NavBar
+function NavBarWrapper() {
+  const location = useLocation();
+  return <NavBar currentRoute={location.pathname} />;
+}
+
+class NavBar extends Component {
   render() {
+    const { currentRoute } = this.props;
+
+    // Check if the current route is "/dashboard"
+    const isDashboard = currentRoute === "/dashboard";
+    const isSignin = currentRoute === "/signin";
+    const isSignup = currentRoute === "/signup";
+    const isAbout = currentRoute === "/about";
+    const isHome = currentRoute === "/homepage";
+
     return (
       <div>
-        {/* Light coffee background color */}
-        <div>
-          <nav className="navbar navbar-expand-lg fixed-top">
-            <div className="container-fluid">
-              {/* Navbar brand */}
-              <Link
-                className="nav-text mx-2 navbar-brand"
-                to="/homepage"
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "17px", // Adjusts the font size
-                  fontFamily: "'Pacifico', cursive", // Cursive font
-                  background: "linear-gradient(to right, #6B4F3B, #C8B19A)", // Adds a gradient background
-                  color: "#fff", // Sets the text color to white for contrast
-                  padding: "10px 20px", // Adds padding around the text
-                  borderRadius: "5px", // Rounds the corners of the background
-                  textTransform: "uppercase", // Makes the text uppercase
-                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)", // Adds a subtle shadow for depth
-                  transition: "transform 0.3s ease-in-out", // Adds smooth hover transition
-                }}
-                // onMouseEnter={(e) => (e.target.style.transform = "scale(1.1)")} // Adds a hover effect
-                // onMouseLeave={(e) => (e.target.style.transform = "scale(1)")} // Resets hover effect
-              >
-                Taskify
-              </Link>
+        <nav className="navbar navbar-expand-lg fixed-top">
+          <div className="container-fluid">
+            {/* Navbar brand */}
+            <Link
+              className="nav-text mx-2 navbar-brand"
+              to="/dashboard"
+              style={{
+                fontWeight: "bold",
+                fontSize: "17px",
+                fontFamily: "'Pacifico', cursive",
+                background: "linear-gradient(to right, #6B4F3B, #C8B19A)",
+                color: "#fff",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                textTransform: "uppercase",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+                transition: "transform 0.3s ease-in-out",
+              }}
+            >
+              Taskify
+            </Link>
 
-              {/* Hamburger button for small screens */}
-              <button
-                className="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span className="navbar-toggler-icon"></span>
-              </button>
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                {/* Left-aligned links */}
-                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            {/* Hamburger button for small screens */}
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div
+              className="collapse navbar-collapse"
+              id="navbarSupportedContent"
+            >
+              {/* Left-aligned links */}
+              <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/homepage">
+                    Home
+                  </Link>
+                </li>
+                {!isSignin && !isHome && !isSignup && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/">
-                      Home
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/about">
+                    <Link className="nav-link" to="#">
                       Starred &#9733;
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      About
-                    </Link>
-                  </li>
-                </ul>
-                {/* Centered search form */}
-                <div class="nav-srch">
+                )}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/about">
+                    About
+                  </Link>
+                </li>
+              </ul>
+
+              {/* Centered search form */}
+              {!isSignin && !isHome && !isSignup && (
+                <div className="nav-srch">
                   <form
                     className="d-flex mx-auto"
                     role="search"
                     style={{
-                      width: "50%",
+                      width: "65%",
                       maxWidth: "500px",
                     }}
                   >
@@ -90,42 +104,49 @@ export class NavBar extends Component {
                         borderBottomLeftRadius: "3px",
                       }}
                     />
-                    <button className="btn srch " type="submit">
+                    <button className="btn srch" type="submit">
                       <i className="bi bi-search"></i>
                     </button>
                   </form>
                 </div>
-
-                {/* Right-aligned links */}
-                <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      Notification <NotificationBell />
-                    </Link>
-                  </li>
-                  <li className="nav-item outline">
-                    <Link className="nav-link outline" to="/about">
-                      Account
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link outline" to="/signin">
-                      Sign In
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link outline" to="/signup">
-                      Sign Up
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              )}
+              {/* Right-aligned links */}
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                {!isSignin && !isHome && !isSignup && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/about">
+                        Notification <NotificationBell />
+                      </Link>
+                    </li>
+                    <li className="nav-item outline">
+                      <Link className="nav-link outline" to="/about">
+                        Account
+                      </Link>
+                    </li>
+                  </>
+                )}
+                {isHome && (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link outline" to="/signin">
+                        Sign In
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link outline" to="/signup">
+                        Sign Up
+                      </Link>
+                    </li>
+                  </>
+                )}
+              </ul>
             </div>
-          </nav>
-        </div>
+          </div>
+        </nav>
       </div>
     );
   }
 }
 
-export default NavBar;
+export default NavBarWrapper;

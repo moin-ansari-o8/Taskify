@@ -1,62 +1,49 @@
-/* Global Styles */
 body {
-    background: linear-gradient(135deg, #C2A99F, #D6BFA7); /* Coffee light gradient */
+    background: linear-gradient(135deg, #C2A99F, #D6BFA7); 
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
 }
-
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
     padding: 0;
 }
-
-/* App Container */
 .App {
     display: flex;
     flex-direction: column;
 }
-
-/* Content Area */
 .content {
-    background: linear-gradient(135deg, #F4E1D2, #E2C5A3); /* Light coffee cream gradient */
+    background: linear-gradient(135deg, #F4E1D2, #E2C5A3); 
     padding: 20px;
     min-height: 100vh;
-    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content movement */
+    transition: margin-left 0.3s ease, width 0.3s ease; 
 }
-
 .content.sidebar-collapsed {
     margin-left: 60px;
-    width: calc(100% - 60px); /* Adjust width for collapsed sidebar */
+    width: calc(100% - 60px); 
 }
-
 .content.sidebar-expanded {
     margin-left: 130px;
-    width: calc(100% - 130px); /* Adjust width for expanded sidebar */
+    width: calc(100% - 130px); 
 }
-
 .content.no-sidebar {
     margin: 0 auto;
-    width: 100%; /* Full width when no sidebar */
+    width: 100%; 
 }
-
-/* Sidebar Styles */
 .sidebar {
-    width: 130px; /* Expanded width */
+    width: 130px; 
     overflow: hidden;
-    border-right: 1px solid #5B3A29; /* Indigo border */
+    border-right: 1px solid #5B3A29; 
     transition: all 0.3s ease-in-out;
-    background: linear-gradient(135deg, #6B4F3B, #C8B19A); /* Coffee brown gradient */
+    background: linear-gradient(135deg, #6B4F3B, #C8B19A); 
     position: fixed;
     top: 60px;
     height: calc(100vh - 60px);
     color: rgb(242, 215, 118);
 }
-
 .sidebar.collapsed {
-    width: 60px; /* Collapsed width */
+    width: 60px; 
 }
-
 .toggle-btn {
     position: absolute;
     top: 10px;
@@ -64,19 +51,17 @@ h1, h2, h3, h4, h5, h6, p {
     transform: translateX(-50%);
     width: 40px;
     height: 40px;
-    background: linear-gradient(45deg, #8C4F30, #5B3A29); /* Button gradient */
+    background: linear-gradient(45deg, #8C4F30, #5B3A29); 
     color: rgb(242, 215, 118);
     border: none;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
-
 .toggle-btn:hover {
     background: linear-gradient(45deg, #5B3A29, #8C4F30);
     transform: translateX(-50%) scale(1.1);
 }
-
 .sidebar-item a {
     border-radius: 5px;
     display: block;
@@ -85,7 +70,6 @@ h1, h2, h3, h4, h5, h6, p {
     text-decoration: none;
     transition: all 0.3s ease-in-out;
 }
-
 .sidebar-item a:hover {
     background: #5B3A29;
     margin: 10px;
@@ -94,39 +78,63 @@ h1, h2, h3, h4, h5, h6, p {
 }
 .divider {
     height: 1px;
-    background-color: #743f24; /* Semi-transparent divider */
+    background-color: #743f24; 
     margin: 5px 15px;
 }
-
-/* Navbar Styles */
 .navbar {
-    background: linear-gradient(135deg, #6B4F3B, #C8B19A); /* Coffee brown gradient */
-    height: 60px; /* Set a fixed height for the navbar */
-  padding: 0; /* Remove any extra padding */
+    background: linear-gradient(135deg, #6B4F3B, #C8B19A); 
+    height: 60px; 
+  padding: 0; 
 }
 .form-control{
-    height: 40px; /* Match the height of the input with the button */
+    height: 40px; 
   font-size: 14px; 
-  
+}
+.form-label{
+    color:rgb(241, 235, 213);
+    font-weight:bold;
+    font-size:medium;
 }
 .nav-srch{
     margin-top:20px;
     width: 40%;
 }
+.form-check-label{
+    color:rgb(241, 235, 213);
+    font-size: medium;
+}
+
+.form-check.form-switch {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+  }
+  
+  .form-switch .form-check-input {
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+  }
+  
+  .form-switch .form-check-input:checked {
+    background-color: #723929; 
+  }
+  
+  .form-switch .form-check-input:not(:checked) {
+    background-color: #ccccccd6; 
+  }
 .srch{
-    padding: 5px; /* Reduce the padding to make the button smaller */
-  font-size: 15px; /* Adjust the font size for the search icon */
+    padding: 5px; 
+  font-size: 15px; 
   border-radius: 3px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  height: 40px; /* Set a fixed height for the button */
+  height: 40px; 
   line-height: 10px;
-  /* margin-top:20px; */
 }
 .nav-text {
     color: rgb(242, 215, 118) !important;
 }
-
 .nav-item a {
     color: rgb(242, 215, 118) !important;
     text-decoration: none;
@@ -135,26 +143,20 @@ h1, h2, h3, h4, h5, h6, p {
     border-radius: 5px;
     transition: all 0.3s ease-in-out;
 }
-
 .nav-item a:hover {
     background: #5B3A29;
     color: rgb(242, 215, 118) !important;
-    /* transform: scale(1.1); */
 }
 .nav-item .outline {
-    color: rgb(242, 215, 118) !important; /* Text color */
-    
+    color: rgb(242, 215, 118) !important; 
     border-radius: 5px;
-    border: 2px solid ; /* Set initial border */
-    /* transition: all 0.3s ease-in-out; */
+    border: 2px solid ; 
 }
 .nav-item .outline:hover {
-    background: #8C4F30; /* Hover effect */
+    background: #8C4F30; 
     color: rgb(242, 215, 118) !important;
-    /* transform: scale(1.1);  */
     border: 2px solid #8C4F30; 
 }
-/* Button Styles */
 .btn {
     background: linear-gradient(45deg, #8C4F30, #5B3A29);
     color: rgb(242, 215, 118) !important;
@@ -164,20 +166,16 @@ h1, h2, h3, h4, h5, h6, p {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
 }
-
 .btn:hover {
     background: linear-gradient(45deg, #5B3A29, #8C4F30);
     transform: scale(1.05);
 }
-
-/* Signup Page */
 .signup-container {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
-
 .signup-card {
     background-color: #fff;
     padding: 30px;
@@ -186,19 +184,16 @@ h1, h2, h3, h4, h5, h6, p {
     width: 100%;
     max-width: 400px;
 }
-
 .signup-title {
     text-align: center;
     font-size: 24px;
     margin-bottom: 20px;
     color: #2e3b4e;
 }
-
 label {
     font-size: 14px;
     color: #5a636f;
 }
-
 input,
 select {
     width: 100%;
@@ -208,7 +203,6 @@ select {
     border-radius: 5px;
     font-size: 16px;
 }
-
 button.signup-btn {
     width: 100%;
     padding: 12px;
@@ -219,12 +213,9 @@ button.signup-btn {
     font-size: 16px;
     cursor: pointer;
 }
-
 button.signup-btn:hover {
     background-color: #8c4f30;
 }
-
-/* Card Styles */
 .cardD-container {
     border: none;
     border-radius: 10px;
@@ -238,18 +229,15 @@ button.signup-btn:hover {
     transition: transform 0.3s ease;
     height: 150px;
 }
-
 .cardD-container:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
-
 .card-title {
     font-size: 20px;
     font-weight: 600;
     margin-top: 15px;
     color: rgb(139, 69, 45) !important;
 }
-
 .circle {
     width: 50px;
     height: 50px;
@@ -266,8 +254,6 @@ button.signup-btn:hover {
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
-
-/* Dashboard Styles */
 .dashboard-container {
     display: flex;
     flex-direction: column;
@@ -276,12 +262,10 @@ button.signup-btn:hover {
     height: 100vh;
     padding: 20px;
 }
-
 .welcome-section {
     text-align: center;
     margin-bottom: 40px;
 }
-
 .welcome-text {
     font-size: 40px;
     font-weight: bold;
@@ -290,15 +274,12 @@ button.signup-btn:hover {
     margin-top: 0;
     margin-bottom: 90px;
 }
-
 .sub-welcome-text {
     font-size: 22px;
     color: #5a636f;
 }
-
 .card-container {
     display: flex;
     gap: 30px;
     justify-content: center;
-    
 }
