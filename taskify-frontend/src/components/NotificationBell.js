@@ -1,5 +1,4 @@
 import React from "react";
-
 const NotificationBell = () => {
   return (
     <span
@@ -27,5 +26,4 @@ const NotificationBell = () => {
     </span>
   );
 };
-
 export default NotificationBell;

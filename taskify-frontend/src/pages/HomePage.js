@@ -1,6 +1,5 @@
 import React from "react";
 // import "./HomePage.css";
-
 const HomePage = () => {
   return (
     <div className="homepage">
@@ -28,7 +27,6 @@ const HomePage = () => {
           <button className="btn btn-signup">Join Now - It’s Free!</button>
         </div>
       </div>
-
       {/* Features Section */}
       <div className="container my-5">
         <h2 className="text-center mb-4">
@@ -74,7 +72,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
       {/* Additional Info Section */}
       <div className="bg-light py-5">
         <div className="container">
@@ -112,7 +109,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
       {/* Why Taskify Section */}
       <div className="container my-5">
         <h2 className="text-center mb-4">Why Choose Taskify?</h2>
@@ -157,7 +153,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
       {/* Footer */}
       <footer className="bg-dark text-white text-center py-3">
         <p>© 2024 Taskify. All Rights Reserved.</p>
@@ -165,5 +160,4 @@ const HomePage = () => {
     </div>
   );
 };
-
 export default HomePage;

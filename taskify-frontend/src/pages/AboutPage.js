@@ -1,6 +1,5 @@
 import React from "react";
 // import "./AboutPage.css";
-
 const AboutPage = () => {
   return (
     <div className="about-us">
@@ -15,7 +14,6 @@ const AboutPage = () => {
           team productivity.
         </p>
       </div>
-
       {/* Our Story Section */}
       <div className="container my-5">
         <h2 className="text-left mb-2">Our Story</h2>
@@ -65,7 +63,6 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
-
       {/* Our Mission Section */}
       <div className="container my-5">
         <h2 className="text-left mb-2">Our Mission</h2>
@@ -101,7 +98,6 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-
             {/* Second Item */}
             <div className="carousel-item">
               <div
@@ -119,7 +115,6 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-
             {/* Third Item */}
             <div className="carousel-item">
               <div
@@ -140,7 +135,6 @@ const AboutPage = () => {
               </div>
             </div>
           </div>
-
           {/* Carousel Controls */}
           <button
             className="carousel-control-prev"
@@ -168,7 +162,6 @@ const AboutPage = () => {
           </button>
         </div>
       </div>
-
       {/* Our Vision Section */}
       <div className="container my-5">
         <h2 className="text-left mb-2">Our Vision</h2>
@@ -204,7 +197,6 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-
             {/* Second Item */}
             <div className="carousel-item">
               <div
@@ -222,7 +214,6 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-
             {/* Third Item */}
             <div className="carousel-item">
               <div
@@ -242,7 +233,6 @@ const AboutPage = () => {
               </div>
             </div>
           </div>
-
           {/* Carousel Controls */}
           <button
             className="carousel-control-prev"
@@ -273,5 +263,4 @@ const AboutPage = () => {
     </div>
   );
 };
-
 export default AboutPage;

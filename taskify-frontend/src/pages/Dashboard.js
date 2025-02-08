@@ -1,13 +1,11 @@
 import React from "react";
 import Card from "../components/Card";
 // import "./Dashboard.css"; // Import the CSS file
-
 const Dashboard = () => {
   // Handle card click actions
   const handleCardClick = (action) => {
     alert(`You clicked on: ${action}`);
   };
-
   return (
     <div className="dashboard-container">
       <div className="welcome-section">
@@ -20,7 +18,6 @@ const Dashboard = () => {
         </h1>
         <p className="sub-welcome-text">Choose an action to get started:</p>
       </div>
-
       <div className="card-container">
         <Card
           title="Create To-do(s)"
@@ -38,5 +35,4 @@ const Dashboard = () => {
     </div>
   );
 };
-
 export default Dashboard;

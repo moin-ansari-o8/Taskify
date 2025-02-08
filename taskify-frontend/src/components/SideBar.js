@@ -5,7 +5,6 @@ import { AiOutlineAppstore } from "react-icons/ai"; // Boards icon
 import { BsCheckCircle } from "react-icons/bs"; // Tasks icon
 import { Link } from "react-router-dom"; // Use Link for routing
 // import "./SideBar.css";
-
 const SideBar = ({ isCollapsed, toggleSidebar }) => {
   const renderItem = (name, icon, path, isDivider = "dvd") => {
     return (
@@ -25,7 +24,6 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
       </li>
     );
   };
-
   return (
     <div
       className={`sidebar ${isCollapsed ? "collapsed" : ""} text-center`}
@@ -36,7 +34,6 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
       <button className="toggle-btn" onClick={toggleSidebar}>
         <strong>&#x2630;</strong>
       </button>
-
       <ul
         style={{
           listStyle: "none",
@@ -52,5 +49,4 @@ const SideBar = ({ isCollapsed, toggleSidebar }) => {
     </div>
   );
 };
-
 export default SideBar;
