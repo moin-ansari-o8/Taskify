@@ -1,47 +1,53 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
+import axios from "axios"; // Import axios
 
 // import "./SignUpForm.css"; // Import custom CSS
 const SignUpForm = () => {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "", // Added state for confirm password
-    role: "user",
-  });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confpass, setConfPass] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("user");
+  const [message, setMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State to control password visibility
   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to control confirm password visibility
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
-    console.log(formData);
-  };
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword); // Toggle password visibility
   };
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword); // Toggle confirm password visibility
   };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password !== confpass) {
+      setMessage("Passwords don’t match!");
+      return; // Stop here if they don’t match
+    }
+    const userData = { username, password, email, role };
+    axios
+      .post("http://localhost:8000/signup/", userData)
+      .then((response) => {
+        setMessage(response.data.message);
+        console.log(userData);
+        setUsername("");
+        setPassword("");
+        setConfPass("");
+        setEmail("");
+      })
+      .catch((error) => {
+        setMessage("Something went wrong!");
+      });
+  };
+
   // Function to clear form fields
   const handleClear = () => {
-    setFormData({
-      username: "",
-      email: "",
-      password: "",
-      confirmPassword: "", // Reset confirm password
-      role: "user",
-    });
+    setUsername(""); // Clear form
+    setPassword("");
+    setConfPass("");
+    setEmail("");
     setShowPassword(false); // Reset password visibility
     setShowConfirmPassword(false); // Reset confirm password visibility
   };
@@ -73,8 +79,8 @@ const SignUpForm = () => {
               id="username"
               name="username"
               placeholder="Enter your username"
-              value={formData.username}
-              onChange={handleChange}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
@@ -89,8 +95,8 @@ const SignUpForm = () => {
               id="email"
               name="email"
               placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -106,8 +112,8 @@ const SignUpForm = () => {
                 id="password"
                 name="password"
                 placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleChange}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 required
               />
               <div className="form-check ms-2">
@@ -121,7 +127,6 @@ const SignUpForm = () => {
               </div>
             </div>
           </div>
-          {}
           <div className="mb-3">
             <label htmlFor="confirmPassword" className="form-label">
               Confirm Password
@@ -133,8 +138,8 @@ const SignUpForm = () => {
                 id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm your password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                value={confpass}
+                onChange={(e) => setConfPass(e.target.value)}
                 required
               />
               <div className="form-check ms-2">
@@ -150,25 +155,23 @@ const SignUpForm = () => {
           </div>
           {}
           <div className="mb-3">
-            <label htmlFor="role" className="form-label">
+            <label htmlFor="role" className="form-label me-2">
               Role
             </label>
             <div className="form-check mt-1 form-switch">
+              <label className="form-check-label me-2" htmlFor="role">
+                {"User"}
+              </label>
               <input
                 className="form-check-input mx-1"
                 type="checkbox"
                 id="role"
                 name="role"
-                checked={formData.role === "admin"}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    role: e.target.checked ? "admin" : "user",
-                  })
-                }
+                checked={role === "admin"}
+                onChange={(e) => setRole(e.target.checked ? "admin" : "user")}
               />
               <label className="form-check-label" htmlFor="role">
-                {formData.role === "admin" ? "Admin" : "User"}
+                {"Admin"}
               </label>
             </div>
           </div>
@@ -187,6 +190,7 @@ const SignUpForm = () => {
             </button>
           </div>
         </form>
+        {message && <p>{message}</p>}
         {}
         <div className="text-center mt-3">
           <p>
