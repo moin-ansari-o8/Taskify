@@ -1,16 +1,13 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useRef,
-  useMemo,
-  // Component,
-} from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "../components/Card";
 
+// TaskModal, DeleteConfirmModal, CardModal unchanged (omitted for brevity)
+// DragDropErrorBoundary unchanged (omitted for brevity)
+
+// Assume these are your existing modal components
 const TaskModal = ({
   showModal,
   onClose,
@@ -24,7 +21,7 @@ const TaskModal = ({
   const [desc, setDesc] = useState(task?.desc || "");
   const [priority, setPriority] = useState(task?.priority || "medium");
   const [dueDate, setDueDate] = useState(task?.due_date || "");
-  const [order, setOrder] = useState(task?.order || 0); // New order field
+  const [order, setOrder] = useState(task?.order || 0);
 
   if (!showModal) return null;
 
@@ -192,7 +189,6 @@ const TaskModal = ({
 
 const DeleteConfirmModal = ({ showModal, onClose, onConfirm }) => {
   if (!showModal) return null;
-
   return (
     <div
       className="modal fade show d-block"
@@ -229,7 +225,7 @@ const DeleteConfirmModal = ({ showModal, onClose, onConfirm }) => {
             className="modal-body p-4 text-center"
             style={{ color: "#FFF8E7" }}
           >
-            Are you sure you want to delete this task?
+            Are you sure you want to delete this?
           </div>
           <div className="modal-footer border-0 justify-content-center">
             <button
@@ -268,7 +264,7 @@ const CardModal = ({
 }) => {
   const [cardTitle, setCardTitle] = useState("");
   const [category, setCategory] = useState("todo");
-  const [order, setOrder] = useState(0); // New order field
+  const [order, setOrder] = useState(0);
 
   useEffect(() => {
     if (cardId && showModal) {
@@ -285,7 +281,7 @@ const CardModal = ({
           if (cardData) {
             setCardTitle(cardData.card_title);
             setCategory(cardData.category);
-            setOrder(cardData.order || 0); // Set order from fetched data
+            setOrder(cardData.order || 0);
           }
         })
         .catch((error) => console.error("Error fetching card data:", error));
@@ -424,32 +420,28 @@ const CardModal = ({
     </div>
   );
 };
+
 class DragDropErrorBoundary extends React.Component {
   state = { hasError: false };
-
   static getDerivedStateFromError(error) {
-    // Check if it's the specific react-beautiful-dnd invariant error
     if (
-      error.message &&
-      error.message.includes(
+      error.message?.includes(
         "Cannot finish a drop animating when no drop is occurring"
       )
     ) {
-      return { hasError: true }; // Mark error but don't crash
+      return { hasError: true };
     }
-    // Let other errors propagate
     throw error;
   }
-
   render() {
     if (this.state.hasError) {
       console.log("Suppressed react-beautiful-dnd animation error.");
-      // Return children without crashing
       return this.props.children;
     }
     return this.props.children;
   }
 }
+
 const Cards = () => {
   const [searchParams] = useSearchParams();
   const boardId = searchParams.get("boardId");
@@ -465,6 +457,7 @@ const Cards = () => {
   const [deleteType, setDeleteType] = useState(null);
   const [clickedTaskId, setClickedTaskId] = useState(null);
   const isDragging = useRef(false);
+  const addCardRef = useRef(null);
 
   const fetchCards = useCallback(() => {
     if (username && boardId && !isDragging.current) {
@@ -661,6 +654,22 @@ const Cards = () => {
       });
   }, [selectedCardId, username, fetchCards]);
 
+  const handleAddCardMouseEnter = useCallback(() => {
+    if (addCardRef.current) {
+      addCardRef.current.style.borderColor = "#4CAF50";
+      addCardRef.current.style.transition = "0.3s";
+      addCardRef.current.style.boxShadow = "0 0 10px rgba(133, 59, 25, 0.91)";
+    }
+  }, []);
+
+  const handleAddCardMouseLeave = useCallback(() => {
+    if (addCardRef.current) {
+      addCardRef.current.style.borderColor = "#4A2F1A";
+      addCardRef.current.style.transition = "0.3s";
+      addCardRef.current.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.4)";
+    }
+  }, []);
+
   const handleDragStart = useCallback(() => {
     isDragging.current = true;
   }, []);
@@ -668,7 +677,6 @@ const Cards = () => {
   const handleDragEnd = useCallback(
     (result) => {
       const { source, destination, draggableId, type } = result;
-
       isDragging.current = false;
 
       if (!destination) {
@@ -766,253 +774,14 @@ const Cards = () => {
     [cards, username, fetchCards]
   );
 
-  const cardList = useMemo(() => {
-    return cards.map((card, index) => (
-      <Draggable key={card.id} draggableId={String(card.id)} index={index}>
-        {(provided) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            <Droppable droppableId={String(card.id)} key={card.id} type="TASK">
-              {(provided) => (
-                <div
-                  className="card text-dark rounded-1 p-0"
-                  style={{
-                    minWidth: "250px",
-                    maxWidth: "250px",
-                    flexShrink: 0,
-                    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
-                    border: "none",
-                    background: "rgba(255, 248, 231, 0.8)",
-                  }}
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  <div className="d-flex align-items-center justify-content-between p-2">
-                    <h5
-                      className="card-title text-center fw-bold mb-0 flex-grow-1"
-                      style={{ color: "#4A2F1A" }}
-                    >
-                      {card.card_title} ({card.category})
-                    </h5>
-                    <button
-                      className="btn btn-sm btn-info ms-2"
-                      onClick={() => {
-                        setSelectedCardId(card.id);
-                        setShowCardModal(true);
-                      }}
-                      style={{
-                        width: "20px",
-                        height: "20px",
-                        padding: 0,
-                        background: "#4A2F1A",
-                        border: "none",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                      }}
-                    >
-                      <i
-                        className="bi bi-pencil"
-                        style={{ fontSize: "14px", color: "#FFF8E7" }}
-                      ></i>
-                    </button>
-                  </div>
-                  <div className="card-body">
-                    {card.tasks && card.tasks.length > 0 ? (
-                      <ul
-                        className="list-group mb-2 custom-scrollbar"
-                        style={{
-                          width: "100%",
-                          overflowY: "auto",
-                          overflowX: "hidden",
-                          padding: "4px 10px",
-                          boxSizing: "border-box",
-                        }}
-                      >
-                        {card.tasks.map((task, index) => (
-                          <Draggable
-                            key={task.id}
-                            draggableId={String(task.id)}
-                            index={index}
-                          >
-                            {(provided) => (
-                              <li
-                                className="tsk-itm my-1 rounded-1"
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <div
-                                  className="d-flex align-items-center w-100"
-                                  style={{
-                                    position: "relative",
-                                    padding: "0 8px",
-                                    boxSizing: "border-box",
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    const checkbox =
-                                      e.currentTarget.querySelector(
-                                        ".task-checkbox"
-                                      );
-                                    const editIcon =
-                                      e.currentTarget.querySelector(
-                                        ".task-edit"
-                                      );
-                                    checkbox.style.opacity = "1";
-                                    checkbox.style.transform = "translateX(0)";
-                                    editIcon.style.opacity = "1";
-                                    editIcon.style.transform = "translateX(0)";
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    const checkbox =
-                                      e.currentTarget.querySelector(
-                                        ".task-checkbox"
-                                      );
-                                    const editIcon =
-                                      e.currentTarget.querySelector(
-                                        ".task-edit"
-                                      );
-                                    checkbox.style.opacity = "0";
-                                    checkbox.style.transform =
-                                      "translateX(-3px)";
-                                    editIcon.style.opacity = "0";
-                                    editIcon.style.transform =
-                                      "translateX(3px)";
-                                  }}
-                                >
-                                  <input
-                                    type="checkbox"
-                                    checked={task.checked}
-                                    onChange={() =>
-                                      handleTaskCheck(task.id, task.checked)
-                                    }
-                                    className="task-checkbox my-2"
-                                    style={{
-                                      opacity: 0,
-                                      width: "20px",
-                                      height: "20px",
-                                      margin: "0 8px 0 0",
-                                      transform: "translateX(-3px)",
-                                      transition:
-                                        "opacity 0.3s ease, transform 0.3s ease",
-                                      position: "relative",
-                                      zIndex: 3,
-                                      background: "#4A2F1A",
-                                      border: "none",
-                                    }}
-                                  />
-                                  <span
-                                    className="task-title"
-                                    style={{
-                                      flex: "1",
-                                      textAlign: "center",
-                                      whiteSpace: "nowrap",
-                                      overflow: "hidden",
-                                      textOverflow: "ellipsis",
-                                      padding: "0 8px",
-                                    }}
-                                  >
-                                    {task.task_title}
-                                  </span>
-                                  <button
-                                    className="task-edit btn btn-sm btn-info mx-1"
-                                    onClick={() =>
-                                      handleTaskClick(card.id, task)
-                                    }
-                                    style={{
-                                      opacity: 0,
-                                      width: "20px",
-                                      height: "20px",
-                                      transform: "translateX(3px)",
-                                      transition:
-                                        "opacity 0.3s ease, transform 0.3s ease",
-                                      position: "relative",
-                                      zIndex: 3,
-                                      padding: 0,
-                                      background: "#4A2F1A",
-                                      border: "none",
-                                      display: "flex",
-                                      alignItems: "center",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <i
-                                      className="bi bi-pencil"
-                                      style={{ fontSize: "14px" }}
-                                    ></i>
-                                  </button>
-                                </div>
-                              </li>
-                            )}
-                          </Draggable>
-                        ))}
-                        {provided.placeholder}
-                      </ul>
-                    ) : (
-                      <p className="text-muted text-center mb-3">
-                        No tasks yet
-                      </p>
-                    )}
-                    <input
-                      type="text"
-                      className="form-control rounded-1"
-                      value={taskInput[card.id] || ""}
-                      onChange={(e) =>
-                        setTaskInput({
-                          ...taskInput,
-                          [card.id]: e.target.value,
-                        })
-                      }
-                      onKeyPress={(e) => {
-                        if (e.key === "Enter") handleTaskInputSubmit(card.id);
-                      }}
-                      placeholder="+ Add Task"
-                      style={{
-                        border: "none",
-                        backgroundColor: "#FFF8E7",
-                        boxShadow: "0 0 5px rgba(0, 0, 0, 0.4)",
-                        color: "#4A2F1A",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.borderColor = "#4CAF50";
-                        e.target.style.transition = "0.3s";
-                        e.target.style.boxShadow =
-                          "0 0 10px rgba(133, 59, 25, 0.91)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.borderColor = "#4A2F1A";
-                        e.target.style.transition = "0.3s";
-                        e.target.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.4)";
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
-            </Droppable>
-          </div>
-        )}
-      </Draggable>
-    ));
-  }, [
-    cards,
-    taskInput,
-    setShowCardModal,
-    setSelectedCardId,
-    handleTaskCheck,
-    handleTaskClick,
-    handleTaskInputSubmit,
-  ]);
-
   const closeModal = useCallback(() => {
     setShowCardModal(false);
     setShowTaskModal(false);
     setShowDeleteModal(false);
     setSelectedCardId(null);
     setSelectedTask(null);
-  }, []);
+    handleAddCardMouseLeave();
+  }, [handleAddCardMouseLeave]);
 
   useEffect(() => {
     fetchCards();
@@ -1036,7 +805,6 @@ const Cards = () => {
         style={{
           padding: "10px",
           marginTop: "2.5rem",
-
           marginBottom: "0.5rem",
           backgroundColor: "rgba(0, 0, 0, 0.1)",
         }}
@@ -1056,19 +824,260 @@ const Cards = () => {
           <Droppable droppableId="board" direction="horizontal" type="CARD">
             {(provided) => (
               <div
-                className="d-flex flex-nowrap overflow-auto py-2 ps-2 pe-0 custom-scrollbar flex-grow-2"
+                className="d-flex flex-nowrap overflow-auto py-2 ps-2 pe-0 custom-scrollbar flex-grow-1"
                 style={{
                   gap: "10px",
                   background: "linear-gradient(90deg, #8B5A2B, #D4A373)",
                   borderRadius: "4px",
                   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
                   scrollBehavior: "auto",
-                  minHeight: "740px",
                 }}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >
-                {cardList}
+                {cards.map((card, index) => (
+                  <Draggable
+                    key={card.id}
+                    draggableId={String(card.id)}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        <Droppable droppableId={String(card.id)} type="TASK">
+                          {(provided) => (
+                            <div
+                              className="card text-dark rounded-1 p-0"
+                              style={{
+                                minWidth: "250px",
+                                maxWidth: "250px",
+                                flexShrink: 0,
+                                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
+                                border: "none",
+                                background: "rgba(255, 248, 231, 0.8)",
+                              }}
+                              ref={provided.innerRef}
+                              {...provided.droppableProps}
+                            >
+                              <div className="d-flex align-items-center justify-content-between p-2">
+                                <h5
+                                  className="card-title text-center fw-bold mb-0 flex-grow-1"
+                                  style={{ color: "#4A2F1A" }}
+                                >
+                                  {card.card_title} ({card.category})
+                                </h5>
+                                <button
+                                  className="btn btn-sm btn-info ms-2"
+                                  onClick={() => {
+                                    setSelectedCardId(card.id);
+                                    setShowCardModal(true);
+                                  }}
+                                  style={{
+                                    width: "20px",
+                                    height: "20px",
+                                    padding: 0,
+                                    background: "#4A2F1A",
+                                    border: "none",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                  }}
+                                >
+                                  <i
+                                    className="bi bi-pencil"
+                                    style={{
+                                      fontSize: "14px",
+                                      color: "#FFF8E7",
+                                    }}
+                                  ></i>
+                                </button>
+                              </div>
+                              <div className="card-body">
+                                {card.tasks && card.tasks.length > 0 ? (
+                                  <ul
+                                    className="list-group mb-2 custom-scrollbar"
+                                    style={{
+                                      width: "100%",
+                                      overflowY: "auto",
+                                      overflowX: "hidden",
+                                      padding: "4px 10px",
+                                      boxSizing: "border-box",
+                                    }}
+                                  >
+                                    {card.tasks.map((task, index) => (
+                                      <Draggable
+                                        key={task.id}
+                                        draggableId={String(task.id)}
+                                        index={index}
+                                      >
+                                        {(provided) => (
+                                          <li
+                                            className="tsk-itm my-1 rounded-1"
+                                            ref={provided.innerRef}
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                          >
+                                            <div
+                                              className="d-flex align-items-center w-100"
+                                              style={{
+                                                position: "relative",
+                                                padding: "0 8px",
+                                                boxSizing: "border-box",
+                                              }}
+                                              onMouseEnter={(e) => {
+                                                const checkbox =
+                                                  e.currentTarget.querySelector(
+                                                    ".task-checkbox"
+                                                  );
+                                                const editIcon =
+                                                  e.currentTarget.querySelector(
+                                                    ".task-edit"
+                                                  );
+                                                checkbox.style.opacity = "1";
+                                                checkbox.style.transform =
+                                                  "translateX(0)";
+                                                editIcon.style.opacity = "1";
+                                                editIcon.style.transform =
+                                                  "translateX(0)";
+                                              }}
+                                              onMouseLeave={(e) => {
+                                                const checkbox =
+                                                  e.currentTarget.querySelector(
+                                                    ".task-checkbox"
+                                                  );
+                                                const editIcon =
+                                                  e.currentTarget.querySelector(
+                                                    ".task-edit"
+                                                  );
+                                                checkbox.style.opacity = "0";
+                                                checkbox.style.transform =
+                                                  "translateX(-3px)";
+                                                editIcon.style.opacity = "0";
+                                                editIcon.style.transform =
+                                                  "translateX(3px)";
+                                              }}
+                                            >
+                                              <input
+                                                type="checkbox"
+                                                checked={task.checked}
+                                                onChange={() =>
+                                                  handleTaskCheck(
+                                                    task.id,
+                                                    task.checked
+                                                  )
+                                                }
+                                                className="task-checkbox my-2"
+                                                style={{
+                                                  opacity: 0,
+                                                  width: "20px",
+                                                  height: "20px",
+                                                  margin: "0 8px 0 0",
+                                                  transform: "translateX(-3px)",
+                                                  transition:
+                                                    "opacity 0.3s ease, transform 0.3s ease",
+                                                  position: "relative",
+                                                  zIndex: 3,
+                                                  background: "#4A2F1A",
+                                                  border: "none",
+                                                }}
+                                              />
+                                              <span
+                                                className="task-title"
+                                                style={{
+                                                  flex: "1",
+                                                  textAlign: "center",
+                                                  whiteSpace: "nowrap",
+                                                  overflow: "hidden",
+                                                  textOverflow: "ellipsis",
+                                                  padding: "0 8px",
+                                                }}
+                                              >
+                                                {task.task_title}
+                                              </span>
+                                              <button
+                                                className="task-edit btn btn-sm btn-info mx-1"
+                                                onClick={() =>
+                                                  handleTaskClick(card.id, task)
+                                                }
+                                                style={{
+                                                  opacity: 0,
+                                                  width: "20px",
+                                                  height: "20px",
+                                                  transform: "translateX(3px)",
+                                                  transition:
+                                                    "opacity 0.3s ease, transform 0.3s ease",
+                                                  position: "relative",
+                                                  zIndex: 3,
+                                                  padding: 0,
+                                                  background: "#4A2F1A",
+                                                  border: "none",
+                                                  display: "flex",
+                                                  alignItems: "center",
+                                                  justifyContent: "center",
+                                                }}
+                                              >
+                                                <i
+                                                  className="bi bi-pencil"
+                                                  style={{ fontSize: "14px" }}
+                                                ></i>
+                                              </button>
+                                            </div>
+                                          </li>
+                                        )}
+                                      </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                  </ul>
+                                ) : (
+                                  <p className="text-muted text-center mb-3">
+                                    No tasks yet
+                                  </p>
+                                )}
+                                <input
+                                  type="text"
+                                  className="form-control rounded-1"
+                                  value={taskInput[card.id] || ""}
+                                  onChange={(e) =>
+                                    setTaskInput({
+                                      ...taskInput,
+                                      [card.id]: e.target.value,
+                                    })
+                                  }
+                                  onKeyPress={(e) => {
+                                    if (e.key === "Enter")
+                                      handleTaskInputSubmit(card.id);
+                                  }}
+                                  placeholder="+ Add Task"
+                                  style={{
+                                    border: "none",
+                                    backgroundColor: "#FFF8E7",
+                                    boxShadow: "0 0 5px rgba(0, 0, 0, 0.4)",
+                                    color: "#4A2F1A",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.target.style.borderColor = "#4CAF50";
+                                    e.target.style.transition = "0.3s";
+                                    e.target.style.boxShadow =
+                                      "0 0 10px rgba(133, 59, 25, 0.91)";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.target.style.borderColor = "#4A2F1A";
+                                    e.target.style.transition = "0.3s";
+                                    e.target.style.boxShadow =
+                                      "0 0 5px rgba(0, 0, 0, 0.4)";
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </Droppable>
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
                 <Draggable
                   draggableId="add-card"
                   index={cards.length}
@@ -1092,6 +1101,9 @@ const Cards = () => {
                           borderRadius: "4px",
                           marginRight: "8px",
                         }}
+                        onMouseEnter={handleAddCardMouseEnter}
+                        onMouseLeave={handleAddCardMouseLeave}
+                        ref={addCardRef}
                       />
                     </div>
                   )}

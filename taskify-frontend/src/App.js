@@ -15,6 +15,8 @@ import AboutPage from "./pages/AboutPage";
 import Dashboard from "./pages/Dashboard"; // Import the Dashboard component
 import SignUpForm from "./pages/SignUpForm";
 import SignInForm from "./pages/SignInForm";
+import Boards from "./pages/Boards";
+import Cards from "./pages/Cards";
 
 function Layout() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -47,6 +49,8 @@ function Layout() {
         <Routes>
           <Route path="/homepage" element={<HomePage />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/boards" element={<Boards />} />
+          <Route path="/cards" element={<Cards />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/signin" element={<SignInForm />} />

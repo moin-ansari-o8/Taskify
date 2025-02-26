@@ -222,15 +222,16 @@ button.signup-btn:hover {
     padding: 20px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    background: linear-gradient(135deg, rgb(146, 113, 89), #C8B19A);
+    /* background: linear-gradient(135deg, rgb(146, 113, 89), #C8B19A); */
     width: 250px;
-    margin: 10px auto;
+    /* margin-right: 5px; */
     cursor: pointer;
     transition: transform 0.3s ease;
     height: 150px;
 }
 .cardD-container:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+    transform: scale(1.03);
 }
 .card-title {
     font-size: 20px;
@@ -304,5 +305,71 @@ button.signup-btn:hover {
     text-align: center;
   }
   
+  /* Cards.css */
+.cards-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding-bottom: 15px;
+    scroll-behavior: smooth;
+  }
   
+  .task-item {
+    background: rgba(156, 28, 28, 0.05);
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 8px;
+    cursor: grab;
+  }
+  .tsk-itm{
+    margin-top: 8px;
+    /* margin-left: -2px; */
+    border: none;
+    background-color:#FFF8E7;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    color: #4A2F1A;
+    /* border-radius: 4px; */
+    /* width: 230px;
+    width: 230px; */
+}
+.tsk-itm:hover{
+    box-shadow: 0 0 10px rgba(133, 59, 25, 0.91);
+    background-color:#D4A373;
+    color: #FFF8E7;
+}
+    /* .tsk-itm:active {
+    cursor: grabbing;
+} */
+    .task-item:active {
+    cursor: grab;
+  }
   
+  .custom-scrollbar {
+    /* scrollbar-width: thin; */
+    /* scrollbar-color: #D4A373 #4A2F1A; */
+  }
+  /* Horizontal scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 10px; /* Slim horizontal scrollbar */
+    width: 10px; /* Slim horizontal scrollbar */
+  }
+  
+  /* Track */
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: linear-gradient(90deg, #4A2F1A, #8B5A2B);
+    border-radius: 4px;
+  }
+  
+  /* Thumb */
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #FFF8E7, #D4A373);
+    border-radius: 4px;
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3); /* Inner shadow for depth */
+    border: 1px solid #4A2F1A; /* Subtle border */
+  }
+  
+  /* Hover effect on thumb */
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(90deg, #D4A373, #FFF8E7); /* Reverse gradient */
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.5); /* Enhanced shadow */
+  }
