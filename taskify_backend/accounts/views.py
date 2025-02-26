@@ -130,13 +130,20 @@ class CardView(APIView):
 
 
 class TaskView(APIView):
-    def get(self, request):
-        card_id = request.query_params.get("card_id")
+    def get(self, request, pk=None):  # Add pk parameter
+        if pk:  # Fetch single task by ID
+            try:
+                task = Task.objects.get(id=pk)
+                serializer = TaskSerializer(task)
+                return Response(serializer.data)
+            except Task.DoesNotExist:
+                return Response({"error": "Task not found"}, status=404)
+        card_id = request.query_params.get("card_id")  # Existing behavior
         if card_id:
             tasks = Task.objects.filter(card_id=card_id)
             serializer = TaskSerializer(tasks, many=True)
             return Response(serializer.data)
-        return Response({"error": "Card ID required"}, status=400)
+        return Response({"error": "Card ID or Task ID required"}, status=400)
 
     def post(self, request):
         serializer = TaskSerializer(data=request.data)

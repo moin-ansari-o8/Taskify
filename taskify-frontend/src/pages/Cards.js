@@ -4,10 +4,6 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "../components/Card";
 
-// TaskModal, DeleteConfirmModal, CardModal unchanged (omitted for brevity)
-// DragDropErrorBoundary unchanged (omitted for brevity)
-
-// Assume these are your existing modal components
 const TaskModal = ({
   showModal,
   onClose,
@@ -17,11 +13,67 @@ const TaskModal = ({
   setSelectedTask,
   setShowDeleteModal,
 }) => {
-  const [taskTitle, setTaskTitle] = useState(task?.task_title || "");
-  const [desc, setDesc] = useState(task?.desc || "");
-  const [priority, setPriority] = useState(task?.priority || "medium");
-  const [dueDate, setDueDate] = useState(task?.due_date || "");
-  const [order, setOrder] = useState(task?.order || 0);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [desc, setDesc] = useState("");
+  const [priority, setPriority] = useState("medium");
+  const [dueDate, setDueDate] = useState(""); // ISO format for datetime-local
+  const [order, setOrder] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  // Helper function to format ISO date to dd-mm-yy HH:MM for display (if needed)
+  const formatDateForDisplay = (isoDate) => {
+    if (!isoDate) return "";
+    const date = new Date(isoDate);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(-2);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${day}-${month}-${year} ${hours}:${minutes}`;
+  };
+
+  // Helper to convert ISO to datetime-local compatible format (YYYY-MM-DDTHH:MM)
+  const formatForDateTimeLocal = (isoDate) => {
+    if (!isoDate) return "";
+    const date = new Date(isoDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  // Fetch task data when editing
+  useEffect(() => {
+    if (task && showModal) {
+      setLoading(true);
+      axios
+        .get(`http://localhost:8000/tasks/${task.id}/`)
+        .then((response) => {
+          const taskData = response.data;
+          setTaskTitle(taskData.task_title || "");
+          setDesc(taskData.desc || "");
+          setPriority(taskData.priority || "medium");
+          setDueDate(formatForDateTimeLocal(taskData.due_date)); // For datetime-local
+          setOrder(taskData.order || 0);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching task data:", err);
+          setError("Failed to load task data.");
+          setLoading(false);
+        });
+    } else {
+      setTaskTitle("");
+      setDesc("");
+      setPriority("medium");
+      setDueDate("");
+      setOrder(0);
+      setError("");
+    }
+  }, [task, showModal]);
 
   if (!showModal) return null;
 
@@ -58,6 +110,8 @@ const TaskModal = ({
             ></button>
           </div>
           <div className="modal-body p-4">
+            {loading && <p style={{ color: "#FFF8E7" }}>Loading...</p>}
+            {error && <p style={{ color: "#D9534F" }}>{error}</p>}
             <div className="mb-3">
               <label
                 className="form-label fw-bold"
@@ -72,6 +126,7 @@ const TaskModal = ({
                 onChange={(e) => setTaskTitle(e.target.value)}
                 placeholder="Enter task name"
                 style={{ borderColor: "#4A2F1A", backgroundColor: "#FFF8E7" }}
+                disabled={loading}
               />
             </div>
             <div className="mb-3">
@@ -88,6 +143,7 @@ const TaskModal = ({
                 placeholder="Enter task description"
                 rows="3"
                 style={{ borderColor: "#4A2F1A", backgroundColor: "#FFF8E7" }}
+                disabled={loading}
               />
             </div>
             <div className="mb-3">
@@ -109,6 +165,7 @@ const TaskModal = ({
                       checked={priority === prio}
                       onChange={(e) => setPriority(e.target.value)}
                       style={{ borderColor: "#4A2F1A" }}
+                      disabled={loading}
                     />
                     <label
                       className="form-check-label"
@@ -128,13 +185,24 @@ const TaskModal = ({
               >
                 Due Date
               </label>
-              <input
-                type="datetime-local"
-                className="form-control rounded-pill shadow-sm"
-                value={dueDate}
-                onChange={(e) => setDueDate(e.target.value)}
-                style={{ borderColor: "#4A2F1A", backgroundColor: "#FFF8E7" }}
-              />
+              <div className="d-flex align-items-center">
+                <input
+                  type="datetime-local"
+                  className="form-control rounded-pill shadow-sm"
+                  value={dueDate}
+                  onChange={(e) => setDueDate(e.target.value)}
+                  style={{
+                    borderColor: "#4A2F1A",
+                    backgroundColor: "#FFF8E7",
+                    flex: "1",
+                  }}
+                  disabled={loading}
+                />
+                {/* Optional: Display formatted date beside it
+                <span className="ms-2" style={{ color: "#FFF8E7" }}>
+                  {dueDate ? formatDateForDisplay(dueDate) : ""}
+                </span> */}
+              </div>
             </div>
             <div className="mb-3">
               <label
@@ -149,6 +217,7 @@ const TaskModal = ({
                 value={order}
                 onChange={(e) => setOrder(parseInt(e.target.value))}
                 style={{ borderColor: "#4A2F1A", backgroundColor: "#FFF8E7" }}
+                disabled={loading}
               />
             </div>
           </div>
@@ -157,7 +226,15 @@ const TaskModal = ({
               className="btn btn-success btn-lg rounded-pill px-5 me-2"
               style={{ backgroundColor: "#4CAF50", borderColor: "#4A2F1A" }}
               onClick={() => {
-                onSubmit({ taskTitle, desc, priority, dueDate, cardId, order });
+                const isoDueDate = dueDate || null; // Already in ISO format from datetime-local
+                onSubmit({
+                  taskTitle,
+                  desc,
+                  priority,
+                  dueDate: isoDueDate,
+                  cardId,
+                  order,
+                });
                 setTaskTitle("");
                 setDesc("");
                 setPriority("medium");
@@ -165,6 +242,7 @@ const TaskModal = ({
                 setOrder(0);
                 onClose();
               }}
+              disabled={loading}
             >
               Submit
             </button>
@@ -176,6 +254,7 @@ const TaskModal = ({
                   setSelectedTask(task);
                   setShowDeleteModal(true);
                 }}
+                disabled={loading}
               >
                 <i className="bi bi-trash"></i>
               </button>
@@ -824,11 +903,12 @@ const Cards = () => {
           <Droppable droppableId="board" direction="horizontal" type="CARD">
             {(provided) => (
               <div
-                className="d-flex flex-nowrap overflow-auto py-2 ps-2 pe-0 custom-scrollbar flex-grow-1"
+                className="d-flex flex-nowrap overflow-auto py-2 ps-2 pe-0 custom-scrollbar"
                 style={{
                   gap: "10px",
                   background: "linear-gradient(90deg, #8B5A2B, #D4A373)",
                   borderRadius: "4px",
+                  minHeight: "calc(100vh - 135px)",
                   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
                   scrollBehavior: "auto",
                 }}
