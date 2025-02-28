@@ -26,7 +26,7 @@ class NavBar extends Component {
     ).toUpperCase();
   };
 
-  // Handle search input change
+  // Handle search input change (real-time search)
   handleSearchChange = (e) => {
     const query = e.target.value;
     this.setState({ searchQuery: query, showResults: query.length > 0 });
@@ -37,6 +37,16 @@ class NavBar extends Component {
         searchResults: { boards: [], cards: [], tasks: [] },
         showResults: false,
       });
+    }
+  };
+
+  // Close dropdown and clear search on outside click
+  handleOutsideClick = (e) => {
+    if (
+      !e.target.closest(".nav-srch") &&
+      !e.target.closest(".search-results")
+    ) {
+      this.setState({ showResults: false, searchQuery: "" });
     }
   };
 

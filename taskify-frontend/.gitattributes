@@ -1,4 +1,0 @@
-# Normalize text files to LF in the repo
-*.js text eol=lf
-*.json text eol=lf
-* text=auto eol=lf
