@@ -13,7 +13,7 @@ const NotificationBell = () => {
           position: "absolute",
           top: "-5px",
           right: "-5px",
-          backgroundColor: "red",
+          backgroundColor: "#4A2F1A",
           color: "white",
           borderRadius: "50%",
           padding: "2px 5px",

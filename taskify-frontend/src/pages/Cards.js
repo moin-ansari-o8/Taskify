@@ -950,16 +950,19 @@ const Cards = () => {
                                   {card.card_title} ({card.category})
                                 </h5>
                                 <button
-                                  className="btn btn-sm btn-info ms-2"
+                                  className="btn btn-sm btn-info ms-2 position-absolute top-0 end-0"
                                   onClick={() => {
                                     setSelectedCardId(card.id);
                                     setShowCardModal(true);
                                   }}
                                   style={{
-                                    width: "20px",
-                                    height: "20px",
-                                    padding: 0,
-                                    background: "#4A2F1A",
+                                    width: "24px",
+                                    height: "24px",
+                                    padding: "10px",
+                                    marginRight: "2px",
+                                    marginTop: "1.5px",
+                                    background:
+                                      "linear-gradient(45deg, #8C4F30, #5B3A29)",
                                     border: "none",
                                     display: "flex",
                                     alignItems: "center",
@@ -1051,7 +1054,7 @@ const Cards = () => {
                                                 }
                                                 className="task-checkbox my-2"
                                                 style={{
-                                                  opacity: 0,
+                                                  opacity: 0, // Hidden by default, shown on hover
                                                   width: "20px",
                                                   height: "20px",
                                                   margin: "0 8px 0 0",
@@ -1060,8 +1063,13 @@ const Cards = () => {
                                                     "opacity 0.3s ease, transform 0.3s ease",
                                                   position: "relative",
                                                   zIndex: 3,
-                                                  background: "#4A2F1A",
-                                                  border: "none",
+                                                  appearance: "none", // Remove default checkbox look
+                                                  WebkitAppearance: "none", // For Safari
+                                                  border: "2px solid #8C4F30", // Match your gradient theme
+                                                  borderRadius: "4px", // Slight rounding
+                                                  background: task.checked
+                                                    ? "linear-gradient(45deg, #8C4F30, #5B3A29)"
+                                                    : "transparent", // Gradient when checked
                                                 }}
                                               />
                                               <span
@@ -1078,21 +1086,22 @@ const Cards = () => {
                                                 {task.task_title}
                                               </span>
                                               <button
-                                                className="task-edit btn btn-sm btn-info mx-1"
+                                                className="task-edit btn btn-sm btn-info "
                                                 onClick={() =>
                                                   handleTaskClick(card.id, task)
                                                 }
                                                 style={{
                                                   opacity: 0,
-                                                  width: "20px",
-                                                  height: "20px",
+                                                  width: "24px",
+                                                  height: "24px",
                                                   transform: "translateX(3px)",
                                                   transition:
                                                     "opacity 0.3s ease, transform 0.3s ease",
                                                   position: "relative",
                                                   zIndex: 3,
-                                                  padding: 0,
-                                                  background: "#4A2F1A",
+                                                  padding: "0",
+                                                  background:
+                                                    "linear-gradient(45deg, #8C4F30, #5B3A29)",
                                                   border: "none",
                                                   display: "flex",
                                                   alignItems: "center",

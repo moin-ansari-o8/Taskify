@@ -83,6 +83,31 @@ class BoardDetailView(APIView):
                 return Response({"error": "Board not found"}, status=404)
         return Response({"error": "Username required"}, status=400)
 
+    def patch(self, request, pk):
+        username = request.data.get("username")
+        if username:
+            try:
+                board = Board.objects.get(id=pk, user__username=username)
+                serializer = BoardSerializer(board, data=request.data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response({"error": serializer.errors}, status=400)
+            except Board.DoesNotExist:
+                return Response({"error": "Board not found"}, status=404)
+        return Response({"error": "Username required"}, status=400)
+
+    def delete(self, request, pk):
+        username = request.query_params.get("username")
+        if username:
+            try:
+                board = Board.objects.get(id=pk, user__username=username)
+                board.delete()
+                return Response(status=204)
+            except Board.DoesNotExist:
+                return Response({"error": "Board not found"}, status=404)
+        return Response({"error": "Username required"}, status=400)
+
 
 class CardView(APIView):
     def get(self, request):
