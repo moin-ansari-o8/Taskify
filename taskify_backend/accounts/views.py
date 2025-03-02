@@ -29,10 +29,15 @@ class SigninView(APIView):
 
         try:
             user = User.objects.get(username=username)
-
-            # Use check_password() to verify hashed password
             if check_password(password, user.password):
-                return Response({"message": "Sign in successful!"}, status=200)
+                return Response(
+                    {
+                        "message": "Sign in successful!",
+                        "username": user.username,
+                        "role": user.role,  # Include role in response
+                    },
+                    status=200,
+                )
             else:
                 return Response({"error": "Invalid password!"}, status=401)
         except User.DoesNotExist:

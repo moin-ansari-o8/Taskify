@@ -9,8 +9,8 @@ const SignInForm = () => {
     rememberMe: false,
   });
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState(""); // For error messages
-  const navigate = useNavigate(); // For redirecting after sign-in
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -26,7 +26,7 @@ const SignInForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
       const response = await axios.post("http://localhost:8000/signin/", {
@@ -35,16 +35,22 @@ const SignInForm = () => {
       });
 
       if (response.status === 200) {
-        // Successful sign-in
-        localStorage.setItem("username", formData.username); // Store username
+        const { username, role } = response.data;
+        // Store username in localStorage
+        localStorage.setItem("username", username);
+        localStorage.setItem("role", role); // Store role for future checks
         if (formData.rememberMe) {
-          // Optionally store more persistent data if "Remember Me" is checked
           localStorage.setItem("rememberMe", "true");
         }
-        navigate("/dashboard"); // Redirect to dashboard
+
+        // Redirect based on role
+        if (role === "admin") {
+          navigate("/admin-dashboard");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } catch (err) {
-      // Handle errors from backend
       if (err.response) {
         setError(
           err.response.data.error || "Sign-in failed. Please try again."
@@ -90,7 +96,6 @@ const SignInForm = () => {
           </div>
         )}
         <form onSubmit={handleSubmit}>
-          {/* Username Field */}
           <div className="mb-3">
             <label
               htmlFor="username"
@@ -112,7 +117,6 @@ const SignInForm = () => {
             />
           </div>
 
-          {/* Password Field */}
           <div className="mb-3">
             <label
               htmlFor="password"
@@ -146,7 +150,6 @@ const SignInForm = () => {
             </div>
           </div>
 
-          {/* Remember Me Switch */}
           <div className="form-check form-switch mb-3">
             <input
               className="form-check-input"
@@ -166,7 +169,6 @@ const SignInForm = () => {
             </label>
           </div>
 
-          {/* Buttons */}
           <div className="d-flex justify-content-between gap-2 mt-4">
             <button
               type="submit"
@@ -194,7 +196,6 @@ const SignInForm = () => {
           </div>
         </form>
 
-        {/* Sign Up Link */}
         <div className="text-center mt-3">
           <p style={{ color: "#FFF8E7" }}>
             Don't have an account?{" "}
