@@ -14,9 +14,13 @@ class NavBar extends Component {
     searchQuery: "",
     searchResults: { boards: [], cards: [], tasks: [] },
     showResults: false,
+    notifications: [],
+    showNotifications: false,
+    editTaskId: null,
+    editDueDate: "",
+    showEditModal: false,
   };
 
-  // Helper to get initials from username
   getInitials = (username) => {
     if (!username) return "?";
     const nameParts = username.trim().split(" ");
@@ -26,7 +30,6 @@ class NavBar extends Component {
     ).toUpperCase();
   };
 
-  // Handle search input change (real-time search)
   handleSearchChange = (e) => {
     const query = e.target.value;
     this.setState({ searchQuery: query, showResults: query.length > 0 });
@@ -40,17 +43,125 @@ class NavBar extends Component {
     }
   };
 
-  // Close dropdown and clear search on outside click
+  fetchNotifications = async () => {
+    const username = localStorage.getItem("username");
+    if (!username) return;
+
+    try {
+      const boardsResponse = await axios.get("http://localhost:8000/boards/", {
+        params: { username },
+      });
+      const notifications = [];
+      const now = new Date();
+
+      for (const board of boardsResponse.data) {
+        const cardsResponse = await axios.get("http://localhost:8000/cards/", {
+          params: { username, board_id: board.id },
+        });
+        for (const card of cardsResponse.data) {
+          for (const task of card.tasks) {
+            const dueDate = task.due_date ? new Date(task.due_date) : null;
+            if (
+              dueDate &&
+              now >= dueDate &&
+              !task.checked &&
+              !task.showNotification
+            ) {
+              await axios.patch(
+                `http://localhost:8000/tasks/${task.id}/update/`,
+                { showNotification: true }
+              );
+              task.showNotification = true;
+            }
+            if (task.showNotification && !task.checked) {
+              notifications.push({
+                ...task,
+                board_id: card.board,
+                card_id: card.id,
+              });
+            }
+          }
+        }
+      }
+      this.setState({ notifications });
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  };
+
+  handleNotificationToggle = () => {
+    this.setState((prevState) => ({
+      showNotifications: !prevState.showNotifications,
+    }));
+  };
+
+  handleDismissNotification = (taskId) => {
+    axios
+      .patch(`http://localhost:8000/tasks/${taskId}/update/`, {
+        showNotification: false,
+      })
+      .then(() => {
+        this.fetchNotifications();
+      })
+      .catch((error) => {
+        console.error("Error dismissing notification:", error);
+        alert("Failed to dismiss notification!");
+      });
+  };
+
+  handleEditDueDate = (taskId, dueDate) => {
+    this.setState({
+      editTaskId: taskId,
+      editDueDate: dueDate || "",
+      showEditModal: true,
+    });
+  };
+
+  handleDueDateChange = (e) => {
+    this.setState({ editDueDate: e.target.value });
+  };
+
+  handleDueDateSubmit = (taskId) => {
+    const { editDueDate } = this.state;
+    axios
+      .patch(`http://localhost:8000/tasks/${taskId}/update/`, {
+        due_date: editDueDate || null,
+        showNotification: false,
+      })
+      .then(() => {
+        this.setState({
+          editTaskId: null,
+          editDueDate: "",
+          showEditModal: false,
+        });
+        this.fetchNotifications();
+      })
+      .catch((error) => {
+        console.error("Error updating due date:", error);
+        alert("Failed to update due date!");
+      });
+  };
+
+  closeEditModal = () => {
+    this.setState({ showEditModal: false, editTaskId: null, editDueDate: "" });
+  };
+
   handleOutsideClick = (e) => {
     if (
       !e.target.closest(".nav-srch") &&
       !e.target.closest(".search-results")
     ) {
-      this.setState({ showResults: false, searchQuery: "" });
+      this.setState({ showResults: false });
+    }
+    if (
+      !e.target.closest(".notification-area") &&
+      !e.target.closest(".notification-dropdown") &&
+      !e.target.closest(".edit-modal")
+    ) {
+      this.setState({ showNotifications: false });
     }
   };
 
-  // Perform search across boards, cards, and tasks
   performSearch = async (query) => {
     const username = localStorage.getItem("username");
     if (!username) return;
@@ -94,27 +205,29 @@ class NavBar extends Component {
     }
   };
 
-  // Close dropdown on outside click
-  handleOutsideClick = (e) => {
-    if (
-      !e.target.closest(".nav-srch") &&
-      !e.target.closest(".search-results")
-    ) {
-      this.setState({ showResults: false });
-    }
-  };
-
   componentDidMount() {
     document.addEventListener("click", this.handleOutsideClick);
+    this.fetchNotifications();
+    this.interval = setInterval(this.fetchNotifications, 60000);
   }
 
   componentWillUnmount() {
     document.removeEventListener("click", this.handleOutsideClick);
+    clearInterval(this.interval);
   }
 
   render() {
     const { currentRoute } = this.props;
-    const { searchQuery, searchResults, showResults } = this.state;
+    const {
+      searchQuery,
+      searchResults,
+      showResults,
+      notifications,
+      showNotifications,
+      editTaskId,
+      editDueDate,
+      showEditModal,
+    } = this.state;
 
     const isDashboard = currentRoute === "/dashboard";
     const isSignin = currentRoute === "/signin";
@@ -196,7 +309,7 @@ class NavBar extends Component {
                     style={{ width: "65%", maxWidth: "500px" }}
                     onSubmit={(e) => {
                       e.preventDefault();
-                      this.performSearch(searchQuery); // Trigger search on form submit (icon click)
+                      this.performSearch(searchQuery);
                     }}
                   >
                     <input
@@ -211,8 +324,7 @@ class NavBar extends Component {
                         borderTopRightRadius: "0",
                         borderBottomRightRadius: "0",
                         borderBottomLeftRadius: "3px",
-                        // border: "1px solid #4A2F1A", // Default brown border
-                        outline: "none", // Remove blue outline
+                        outline: "none",
                       }}
                     />
                     <button className="btn srch" type="submit">
@@ -228,14 +340,13 @@ class NavBar extends Component {
                         right: 0,
                         marginLeft: "7rem",
                         width: "65%",
-                        maxHeight: "300px",
                         overflowY: "auto",
                         zIndex: 1000,
                         background: "rgba(255, 248, 231, 0.95)",
                         border: "1px solid #4A2F1A",
                         borderRadius: "5px",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-                        padding: "5px 0",
+                        padding: "5px",
                       }}
                     >
                       {hasBoards && (
@@ -250,7 +361,7 @@ class NavBar extends Component {
                             <Link
                               key={board.id}
                               to={`/cards?boardId=${board.id}`}
-                              className="dropdown-item custom-dropdown-item"
+                              className="dropdown-item custom-dropdown-item ms-4"
                             >
                               {board.board_title}
                             </Link>
@@ -274,7 +385,7 @@ class NavBar extends Component {
                             <Link
                               key={card.id}
                               to={`/cards?boardId=${card.board}`}
-                              className="dropdown-item custom-dropdown-item"
+                              className="dropdown-item custom-dropdown-item ms-4"
                             >
                               {card.card_title}
                             </Link>
@@ -298,7 +409,7 @@ class NavBar extends Component {
                             <Link
                               key={task.id}
                               to={`/cards?boardId=${task.board_id}`}
-                              className="dropdown-item custom-dropdown-item"
+                              className="dropdown-item custom-dropdown-item ms-4"
                             >
                               {task.task_title}
                             </Link>
@@ -312,10 +423,108 @@ class NavBar extends Component {
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 {!isSignin && !isSignup && (
                   <>
-                    <li className="nav-item">
-                      <Link className="nav-link" to="/about">
+                    <li className="nav-item notification-area position-relative">
+                      <Link
+                        className="nav-link"
+                        to="#"
+                        onClick={this.handleNotificationToggle}
+                      >
                         Notification <NotificationBell />
+                        {notifications.length > 0 && (
+                          <span
+                            className="badge rounded-pill"
+                            style={{
+                              position: "absolute",
+                              top: "2px",
+                              right: "5px",
+                              width: "20px",
+                              backgroundColor: "#4A2F1A",
+                              color: "white",
+                              borderRadius: "50%",
+                              padding: "5px",
+                              fontSize: "10px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {notifications.length}
+                          </span>
+                        )}
                       </Link>
+                      {showNotifications && (
+                        <div
+                          className="dropdown-menu show notification-dropdown"
+                          style={{
+                            top: "100%",
+                            right: 0,
+                            width: "300px",
+                            overflowY: "auto",
+                            zIndex: 1000,
+                            background: "rgba(255, 248, 231, 0.95)",
+                            border: "1px solid #4A2F1A",
+                            borderRadius: "5px",
+                            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                            padding: "5px",
+                          }}
+                        >
+                          {notifications.length > 0 ? (
+                            notifications.map((task) => (
+                              <div
+                                key={task.id}
+                                className="position-relative d-flex align-items-center justify-content-between"
+                                style={{ padding: "5px 10px" }}
+                              >
+                                <i
+                                  className="bi bi-pencil me-2"
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "#4A2F1A",
+                                  }}
+                                  onClick={() =>
+                                    this.handleEditDueDate(
+                                      task.id,
+                                      task.due_date
+                                    )
+                                  }
+                                ></i>
+                                <span
+                                  className="dropdown-item-text"
+                                  style={{
+                                    flex: "1",
+                                    fontSize: "0.9rem",
+                                    color: "#4A2F1A",
+                                    whiteSpace: "nowrap",
+                                    overflow: "hidden",
+                                    textOverflow: "ellipsis",
+                                  }}
+                                >
+                                  {task.task_title} (Due:{" "}
+                                  {new Date(task.due_date).toLocaleString()})
+                                </span>
+                                <i
+                                  className="bi bi-x-circle ms-2"
+                                  style={{
+                                    cursor: "pointer",
+                                    color: "#D9534F",
+                                  }}
+                                  onClick={() =>
+                                    this.handleDismissNotification(task.id)
+                                  }
+                                ></i>
+                              </div>
+                            ))
+                          ) : (
+                            <div
+                              className="dropdown-item-text text-muted text-center"
+                              style={{
+                                padding: "5px 10px",
+                                fontSize: "0.9rem",
+                              }}
+                            >
+                              No notifications
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </li>
                     <li className="nav-item dropdown">
                       <button
@@ -449,6 +658,63 @@ class NavBar extends Component {
             </div>
           </div>
         </nav>
+
+        {/* Edit Due Date Modal */}
+        {showEditModal && (
+          <div
+            className="modal fade show d-block"
+            style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div
+                className="modal-content"
+                style={{
+                  background: "rgba(255, 248, 231, 0.95)",
+                  border: "1px solid #4A2F1A",
+                  borderRadius: "5px",
+                  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <div className="modal-header border-0">
+                  <h5
+                    className="modal-title mx-auto"
+                    style={{ color: "#4A2F1A" }}
+                  >
+                    Edit Due Date
+                  </h5>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    onClick={this.closeEditModal}
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <input
+                    type="datetime-local"
+                    value={editDueDate}
+                    onChange={this.handleDueDateChange}
+                    className="form-control"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div className="modal-footer border-0 justify-content-center">
+                  <button
+                    className="btn btn-success"
+                    onClick={() => this.handleDueDateSubmit(editTaskId)}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={this.closeEditModal}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

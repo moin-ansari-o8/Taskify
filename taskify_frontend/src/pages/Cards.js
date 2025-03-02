@@ -1085,6 +1085,41 @@ const Cards = () => {
                                               >
                                                 {task.task_title}
                                               </span>
+                                              <span
+                                                className={`badge position-absolute`}
+                                                style={{
+                                                  top: "10px",
+                                                  right: "-9px", // Adjusted to make space for edit button
+                                                  width: "1%",
+                                                  height: "14px",
+                                                  borderTopLeftRadius: "0",
+                                                  borderTopRightRadius: "3px",
+                                                  borderBottomRightRadius:
+                                                    "3px",
+                                                  borderBottomLeftRadius: "0",
+                                                  backgroundColor:
+                                                    task.priority === "high"
+                                                      ? "#D9534F" // Red
+                                                      : task.priority ===
+                                                        "medium"
+                                                      ? "#FFC107" // Yellow
+                                                      : "#28A745", // Green
+                                                  color: "#FFF", // White text/icon inside badge
+                                                  display: "flex",
+                                                  alignItems: "center",
+                                                  justifyContent: "center",
+                                                  fontSize: "12px",
+                                                  boxShadow:
+                                                    "0 2px 4px rgba(139, 90, 43, 0.5)",
+                                                  zIndex: 2, // Ensures badge is below edit button but above text
+                                                }}
+                                              >
+                                                {/* {task.priority === "high"
+                                                  ? "H"
+                                                  : task.priority === "medium"
+                                                  ? "M"
+                                                  : "L"} */}
+                                              </span>
                                               <button
                                                 className="task-edit btn btn-sm btn-info "
                                                 onClick={() =>

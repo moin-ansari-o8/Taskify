@@ -229,7 +229,7 @@ const Dashboard = () => {
       <div className="row g-4 justify-content-center ps-3">
         {/* List existing boards */}
         {boards.map((board) => (
-          <div key={board.id} className="col-lg-3 col-md-4 col-sm-6">
+          <div key={board.id} className="col-lg-3 col-md-4 col-sm-6 ps-4">
             <Card
               title={board.board_title}
               onClick={() => handleBoardClick(board.id)}

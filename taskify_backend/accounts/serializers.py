@@ -38,6 +38,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority",
             "checked",
             "order",  # Added order
+            "showNotification",
         ]
         read_only_fields = ["id", "created_at"]
 

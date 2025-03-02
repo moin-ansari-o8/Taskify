@@ -56,7 +56,7 @@ class Task(models.Model):
     task_title = models.CharField(max_length=200, default="New Task")
     desc = models.TextField(blank=True, default="")
     card = models.ForeignKey(
-        Card, on_delete=models.CASCADE, default=1, related_name="tasks"
+        "Card", on_delete=models.CASCADE, default=1, related_name="tasks"
     )
     due_date = models.DateTimeField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -64,7 +64,26 @@ class Task(models.Model):
         max_length=6, choices=PRIORITY_CHOICES, default="medium"
     )
     checked = models.BooleanField(default=False)
-    order = models.IntegerField(default=0)  # New field
+    order = models.IntegerField(default=0)
+    showNotification = models.BooleanField(default=False)  # New field
+
+    # def save(self, *args, **kwargs):
+    #     # Check if this is an update and showNotification is in the request data
+    #     if self.pk is not None and "request" in kwargs:
+    #         request_data = kwargs["request"].data
+    #         if "showNotification" in request_data:
+    #             # Respect the PATCH value, don’t override
+    #             super().save(*args, **kwargs)
+    #             return
+    #     # Default logic for new tasks or non-PATCH updates
+    #     if self.due_date and not self.showNotification:
+    #         from django.utils import timezone
+
+    #         if timezone.now() >= self.due_date:
+    #             self.showNotification = True
+    #     super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # No custom logic
 
     def __str__(self):
         return f"{self.task_title} ({self.priority})"

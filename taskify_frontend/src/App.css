@@ -100,14 +100,15 @@ h1, h2, h3, h4, h5, h6, p {
     border-radius: 50%;
     width: 40%;
 }
-.srchbox{
-    font-family: 'Courier New', Courier,monospace;
-}
 /* Search box styling */
+.srchbox {
+}
+
 .srchbox:focus {
-    border: 1px solid #8C4F30 !important; /* Brown border when active */
-    outline: none !important; /* Ensure no blue outline */
-  }
+  border: 2px solid #8C4F30 !important; /* Brown border on focus */
+  outline: none !important; /* Ensure no blue outline */
+  box-shadow: none !important; /* Remove any Bootstrap shadow */
+}
 .tmp{
     background-color: red;
 }
@@ -216,7 +217,8 @@ padding: 5px;
 /* Hover effect for all dropdown items */
 .custom-dropdown-item:hover {
   background: #8C4F30 !important; /* Consistent hover background */
-  color: #FFF8E7 !important; /* Text color on hover */
+  color: rgb(242, 215, 118)!important; /* Text color on hover */
+  border-radius: 4px;
 }/* Style for Account and Others labels */
 .dropdown-item-text.text-muted {
     color: #daae8d !important; /* Change this to your desired color */

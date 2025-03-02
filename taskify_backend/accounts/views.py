@@ -197,8 +197,9 @@ def update_task(request, pk):
 
     serializer = TaskSerializer(task, data=request.data, partial=True)
     if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
+        serializer.save()  # Ensure save persists
+        updated_task = Task.objects.get(id=pk)  # Fetch fresh instance
+        return Response(TaskSerializer(updated_task).data)
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
