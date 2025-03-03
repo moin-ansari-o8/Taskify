@@ -1,20 +1,25 @@
+# views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password, check_password
-from .models import User, Board, Card, Task
-from .serializers import UserSerializer, BoardSerializer, CardSerializer, TaskSerializer
+from django.utils import timezone
+from .models import User, Board, Card, Task, Notification
+from .serializers import (
+    UserSerializer,
+    BoardSerializer,
+    CardSerializer,
+    TaskSerializer,
+    NotificationSerializer,
+)
 from rest_framework.decorators import api_view
 from rest_framework import status
 
 
 class SignupView(APIView):
     def post(self, request):
-        data = request.data.copy()  # Copy request data to modify it
-
-        # Hash the password before saving
+        data = request.data.copy()
         if "password" in data:
             data["password"] = make_password(data["password"])
-
         serializer = UserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
@@ -26,7 +31,6 @@ class SigninView(APIView):
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
-
         try:
             user = User.objects.get(username=username)
             if check_password(password, user.password):
@@ -34,7 +38,7 @@ class SigninView(APIView):
                     {
                         "message": "Sign in successful!",
                         "username": user.username,
-                        "role": user.role,  # Include role in response
+                        "role": user.role,
                     },
                     status=200,
                 )
@@ -54,11 +58,8 @@ class BoardView(APIView):
         return Response({"error": "Username required"}, status=400)
 
     def post(self, request):
-        board_name = request.data.get(
-            "board_title"
-        )  # Changed from "name" to match frontend
+        board_name = request.data.get("board_title")
         username = request.data.get("username")
-
         if Board.objects.filter(
             board_title=board_name, user__username=username
         ).exists():
@@ -66,7 +67,6 @@ class BoardView(APIView):
                 {"error": "A board with this name already exists for this user!"},
                 status=400,
             )
-
         serializer = BoardSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -121,9 +121,7 @@ class CardView(APIView):
         if username and board_id:
             cards = Card.objects.filter(
                 board__user__username=username, board_id=board_id
-            ).order_by(
-                "order"
-            )  # Sort by order
+            ).order_by("order")
             serializer = CardSerializer(cards, many=True)
             return Response(serializer.data)
         return Response({"error": "Username and Board ID required"}, status=400)
@@ -160,15 +158,15 @@ class CardView(APIView):
 
 
 class TaskView(APIView):
-    def get(self, request, pk=None):  # Add pk parameter
-        if pk:  # Fetch single task by ID
+    def get(self, request, pk=None):
+        if pk:
             try:
                 task = Task.objects.get(id=pk)
                 serializer = TaskSerializer(task)
                 return Response(serializer.data)
             except Task.DoesNotExist:
                 return Response({"error": "Task not found"}, status=404)
-        card_id = request.query_params.get("card_id")  # Existing behavior
+        card_id = request.query_params.get("card_id")
         if card_id:
             tasks = Task.objects.filter(card_id=card_id)
             serializer = TaskSerializer(tasks, many=True)
@@ -202,8 +200,17 @@ def update_task(request, pk):
 
     serializer = TaskSerializer(task, data=request.data, partial=True)
     if serializer.is_valid():
-        serializer.save()  # Ensure save persists
-        updated_task = Task.objects.get(id=pk)  # Fetch fresh instance
+        serializer.save()
+        updated_task = Task.objects.get(id=pk)
+
+        # If due_date is updated to a future time, clear existing notifications
+        now = timezone.now()
+        new_due_date = updated_task.due_date
+        if new_due_date and new_due_date > now:
+            Notification.objects.filter(
+                task=updated_task
+            ).delete()  # Remove old notifications
+
         return Response(TaskSerializer(updated_task).data)
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -213,3 +220,59 @@ class UserListView(APIView):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+
+
+class NotificationView(APIView):
+    def get(self, request):
+        username = request.query_params.get("username")
+        if not username:
+            return Response({"error": "Username required"}, status=400)
+
+        # Fetch all tasks for the user
+        tasks = Task.objects.filter(card__board__user__username=username, checked=False)
+        now = timezone.now()
+
+        # Check tasks and create notifications for overdue ones
+        for task in tasks:
+            if task.due_date and now >= task.due_date:
+                Notification.objects.get_or_create(
+                    task=task,
+                    defaults={
+                        "title": task.task_title,
+                        "due_date": task.due_date,
+                        "created_at": now,
+                    },
+                )
+
+        # Return all undismissed notifications
+        notifications = Notification.objects.filter(
+            task__card__board__user__username=username, dismissed=False
+        )
+        serializer = NotificationSerializer(notifications, many=True)
+        return Response(serializer.data)
+
+    def patch(self, request, pk):
+        try:
+            notification = Notification.objects.get(id=pk)
+            serializer = NotificationSerializer(
+                notification, data=request.data, partial=True
+            )
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response({"error": serializer.errors}, status=400)
+        except Notification.DoesNotExist:
+            return Response({"error": "Notification not found"}, status=404)
+
+
+# views.py (append this class)
+class UserDetailView(APIView):
+    def delete(self, request, username):
+        try:
+            user = User.objects.get(username=username)
+            if user.role == "admin":
+                return Response({"error": "Cannot delete admin users"}, status=403)
+            user.delete()
+            return Response(status=204)
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)

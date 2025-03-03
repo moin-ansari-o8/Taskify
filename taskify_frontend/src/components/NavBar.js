@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./bootstrap-icons/font/bootstrap-icons.css";
-import NotificationBell from "./NotificationBell";
 import axios from "axios";
+import NotificationBell from "./NotificationBell";
 
 function NavBarWrapper() {
   const location = useLocation();
@@ -48,57 +47,26 @@ class NavBar extends Component {
     if (!username) return;
 
     try {
-      const boardsResponse = await axios.get("http://localhost:8000/boards/", {
+      const response = await axios.get("http://localhost:8000/notifications/", {
         params: { username },
       });
-      const notifications = [];
-      const now = new Date();
-
-      for (const board of boardsResponse.data) {
-        const cardsResponse = await axios.get("http://localhost:8000/cards/", {
-          params: { username, board_id: board.id },
-        });
-        for (const card of cardsResponse.data) {
-          for (const task of card.tasks) {
-            const dueDate = task.due_date ? new Date(task.due_date) : null;
-            if (
-              dueDate &&
-              now >= dueDate &&
-              !task.checked &&
-              !task.showNotification
-            ) {
-              await axios.patch(
-                `http://localhost:8000/tasks/${task.id}/update/`,
-                { showNotification: true }
-              );
-              task.showNotification = true;
-            }
-            if (task.showNotification && !task.checked) {
-              notifications.push({
-                ...task,
-                board_id: card.board,
-                card_id: card.id,
-              });
-            }
-          }
-        }
-      }
-      this.setState({ notifications });
+      this.setState({ notifications: response.data });
     } catch (error) {
       console.error("Error fetching notifications:", error);
     }
   };
 
-  handleNotificationToggle = () => {
+  handleNotificationToggle = (e) => {
+    e.preventDefault();
     this.setState((prevState) => ({
       showNotifications: !prevState.showNotifications,
     }));
   };
 
-  handleDismissNotification = (taskId) => {
+  handleDismissNotification = (notificationId) => {
     axios
-      .patch(`http://localhost:8000/tasks/${taskId}/update/`, {
-        showNotification: false,
+      .patch(`http://localhost:8000/notifications/${notificationId}/`, {
+        dismissed: true,
       })
       .then(() => {
         this.fetchNotifications();
@@ -126,7 +94,6 @@ class NavBar extends Component {
     axios
       .patch(`http://localhost:8000/tasks/${taskId}/update/`, {
         due_date: editDueDate || null,
-        showNotification: false,
       })
       .then(() => {
         this.setState({
@@ -134,7 +101,7 @@ class NavBar extends Component {
           editDueDate: "",
           showEditModal: false,
         });
-        this.fetchNotifications();
+        this.fetchNotifications(); // Refresh notifications after update
       })
       .catch((error) => {
         console.error("Error updating due date:", error);
@@ -152,15 +119,16 @@ class NavBar extends Component {
       !e.target.closest(".search-results")
     ) {
       this.setState({
-        searchQuery: "", // Clear the search input
-        showResults: false, // Hide results
-        searchResults: { boards: [], cards: [], tasks: [] }, // Reset results
+        searchQuery: "",
+        showResults: false,
+        searchResults: { boards: [], cards: [], tasks: [] },
       });
     }
     if (
       !e.target.closest(".notification-area") &&
       !e.target.closest(".notification-dropdown") &&
-      !e.target.closest(".edit-modal")
+      !e.target.closest(".edit-modal") &&
+      !e.target.closest(".dropdown-menu")
     ) {
       this.setState({ showNotifications: false });
     }
@@ -212,7 +180,7 @@ class NavBar extends Component {
   componentDidMount() {
     document.addEventListener("click", this.handleOutsideClick);
     this.fetchNotifications();
-    this.interval = setInterval(this.fetchNotifications, 60000);
+    this.interval = setInterval(this.fetchNotifications, 1000); // Poll every 1 second
   }
 
   componentWillUnmount() {
@@ -233,10 +201,8 @@ class NavBar extends Component {
       showEditModal,
     } = this.state;
 
-    const isDashboard = currentRoute === "/dashboard";
     const isSignin = currentRoute === "/signin";
     const isSignup = currentRoute === "/signup";
-    const isAbout = currentRoute === "/about";
     const isHome = currentRoute === "/homepage";
 
     const username = localStorage.getItem("username") || "";
@@ -252,20 +218,8 @@ class NavBar extends Component {
         <nav className="navbar navbar-expand-lg fixed-top">
           <div className="container-fluid">
             <Link
-              className="nav-text mx-2 navbar-brand"
+              className="nav-text mx-2 navbar-brand nav-logo"
               to="/dashboard"
-              style={{
-                fontWeight: "bold",
-                fontSize: "17px",
-                fontFamily: "'Pacifico', cursive",
-                background: "linear-gradient(to right, #6B4F3B, #C8B19A)",
-                color: "#fff",
-                padding: "10px 20px",
-                borderRadius: "5px",
-                textTransform: "uppercase",
-                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.5)",
-                transition: "transform 0.3s ease-in-out",
-              }}
             >
               Taskify
             </Link>
@@ -331,9 +285,6 @@ class NavBar extends Component {
                         outline: "none",
                       }}
                     />
-                    {/* <button className="btn srch" type="submit">
-                      <i className="bi bi-search"></i>
-                    </button> */}
                   </form>
                   {showResults && (hasBoards || hasCards || hasTasks) && (
                     <div
@@ -456,37 +407,37 @@ class NavBar extends Component {
                       </Link>
                       {showNotifications && (
                         <div
-                          className="dropdown-menu show notification-dropdown"
+                          className="dropdown-menu show notification-dropdown my-2"
                           style={{
                             top: "100%",
                             right: 0,
                             width: "300px",
                             overflowY: "auto",
-                            zIndex: 1000,
+                            zIndex: 100,
                             background: "rgba(255, 248, 231, 0.95)",
-                            border: "1px solid #4A2F1A",
+                            // border: "1px solid #4A2F1A",
                             borderRadius: "5px",
                             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                             padding: "5px",
                           }}
                         >
                           {notifications.length > 0 ? (
-                            notifications.map((task) => (
+                            notifications.map((notification) => (
                               <div
-                                key={task.id}
+                                key={notification.id}
                                 className="position-relative d-flex align-items-center justify-content-between"
-                                style={{ padding: "5px 10px" }}
+                                style={{ padding: "5px 10px", border: "none" }}
                               >
                                 <i
-                                  className="bi bi-pencil me-2"
+                                  className="bi bi-pencil me-2 pencil"
                                   style={{
                                     cursor: "pointer",
-                                    color: "#4A2F1A",
+                                    color: "rgb(204, 161, 3)",
                                   }}
                                   onClick={() =>
                                     this.handleEditDueDate(
-                                      task.id,
-                                      task.due_date
+                                      notification.task,
+                                      notification.due_date
                                     )
                                   }
                                 ></i>
@@ -494,24 +445,26 @@ class NavBar extends Component {
                                   className="dropdown-item-text"
                                   style={{
                                     flex: "1",
-                                    fontSize: "0.9rem",
-                                    color: "#4A2F1A",
+                                    fontSize: "1rem",
+
+                                    color: "rgb(242, 215, 118)",
                                     whiteSpace: "nowrap",
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
                                   }}
                                 >
-                                  {task.task_title} (Due:{" "}
-                                  {new Date(task.due_date).toLocaleString()})
+                                  {notification.title}
                                 </span>
                                 <i
                                   className="bi bi-x-circle ms-2"
                                   style={{
                                     cursor: "pointer",
-                                    color: "#D9534F",
+                                    color: "#463223",
                                   }}
                                   onClick={() =>
-                                    this.handleDismissNotification(task.id)
+                                    this.handleDismissNotification(
+                                      notification.id
+                                    )
                                   }
                                 ></i>
                               </div>
@@ -532,7 +485,7 @@ class NavBar extends Component {
                     </li>
                     <li className="nav-item dropdown">
                       <button
-                        className="btn nav-link"
+                        className="btn nav-link "
                         type="button"
                         id="accountDropdown"
                         data-bs-toggle="dropdown"
@@ -541,7 +494,7 @@ class NavBar extends Component {
                           width: "40px",
                           height: "40px",
                           borderRadius: "50%",
-                          background: "#8C4F30",
+                          background: "#463223",
                           color: "#FFF8E7",
                           display: "flex",
                           alignItems: "center",
@@ -555,13 +508,8 @@ class NavBar extends Component {
                         {initials}
                       </button>
                       <ul
-                        className="dropdown-menu dropdown-menu-end"
+                        className="dropdown-menu dropdown-menu-end my-2"
                         aria-labelledby="accountDropdown"
-                        style={{
-                          background: "rgba(255, 248, 231, 0.95)",
-                          border: "1px solid #4A2F1A",
-                          borderRadius: "5px",
-                        }}
                       >
                         <li>
                           <span
@@ -663,7 +611,6 @@ class NavBar extends Component {
           </div>
         </nav>
 
-        {/* Edit Due Date Modal */}
         {showEditModal && (
           <div
             className="modal fade show d-block"

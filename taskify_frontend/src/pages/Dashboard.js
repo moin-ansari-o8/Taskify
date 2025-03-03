@@ -216,7 +216,7 @@ const Dashboard = () => {
     <div className="container min-vh-100 py-5">
       <div
         className="text-start mb-3 justify-content-center d-flex"
-        style={{ padding: "10px", backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+        style={{ padding: "10px", backgroundColor: "rgba(104, 73, 47, 0.5)" }}
       >
         <p
           className="lead text-muted"
@@ -234,16 +234,19 @@ const Dashboard = () => {
               title={board.board_title}
               onClick={() => handleBoardClick(board.id)}
               className="w-100 h-100"
-              style={{ border: "none", background: "rgba(255, 248, 231, 0.8)" }}
+              style={{
+                border: "none",
+                background: "rgba(255, 248, 231, 0.8)",
+              }}
             >
               {/* Button container with hover visibility */}
               <div className="card-buttons">
                 <button
                   className="btn btn-sm"
                   style={{
-                    background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                    background: "#463223",
                     border: "1px solid",
-                    color: "brown",
+                    color: "#463223",
                     height: "30px",
                     width: "30px",
                     borderRadius: "30%",
@@ -262,9 +265,9 @@ const Dashboard = () => {
                 <button
                   className="btn btn-sm"
                   style={{
-                    background: "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                    background: "#463223",
                     border: "1px solid",
-                    color: "#4A2F1A",
+                    color: "#463223",
                     height: "30px",
                     width: "30px",
                     borderRadius: "30%",

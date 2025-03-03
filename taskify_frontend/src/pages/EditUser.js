@@ -189,13 +189,11 @@ const EditUser = () => {
                   {boards.map((board) => (
                     <li
                       key={board.id}
-                      className="list-group-item d-flex justify-content-between align-items-center"
-                      style={{ background: "transparent", border: "none" }}
+                      className="list-group-item d-flex justify-content-between align-items-center user-edit-list"
+                      style={{ background: "", border: "none" }}
+                      onClick={() => handleBoardClick(board.id)}
                     >
-                      <span
-                        style={{ color: "#4A2F1A", cursor: "pointer" }}
-                        onClick={() => handleBoardClick(board.id)}
-                      >
+                      <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                         {board.board_title}
                       </span>
                       <i
@@ -255,13 +253,11 @@ const EditUser = () => {
                     {tasks.map((task) => (
                       <li
                         key={task.id}
-                        className="list-group-item d-flex justify-content-between align-items-center"
-                        style={{ background: "transparent", border: "none" }}
+                        className="list-group-item d-flex justify-content-between align-items-center user-edit-list"
+                        style={{ background: "", border: "none" }}
+                        onClick={() => handleTaskClick(task.id)}
                       >
-                        <span
-                          style={{ color: "#4A2F1A", cursor: "pointer" }}
-                          onClick={() => handleTaskClick(task.id)}
-                        >
+                        <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                           {task.task_title}
                         </span>
                         <i
@@ -280,13 +276,11 @@ const EditUser = () => {
                   {cards.map((card) => (
                     <li
                       key={card.id}
-                      className="list-group-item d-flex justify-content-between align-items-center"
-                      style={{ background: "transparent", border: "none" }}
+                      className="list-group-item d-flex justify-content-between align-items-center user-edit-list"
+                      style={{ background: "", border: "none" }}
+                      onClick={() => handleCardClick(card.id)}
                     >
-                      <span
-                        style={{ color: "#4A2F1A", cursor: "pointer" }}
-                        onClick={() => handleCardClick(card.id)}
-                      >
+                      <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                         {card.card_title}
                       </span>
                       <i

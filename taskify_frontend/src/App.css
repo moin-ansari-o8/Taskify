@@ -2,7 +2,8 @@ body {
     background: linear-gradient(135deg, #C2A99F, #D6BFA7); 
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 h1, h2, h3, h4, h5, h6, p {
     margin: 0;
@@ -13,7 +14,7 @@ h1, h2, h3, h4, h5, h6, p {
     flex-direction: column;
 }
 .content {
-    background: linear-gradient(135deg, #F4E1D2, #E2C5A3); 
+    background:  #D1BBA9; 
     padding: 20px;
     min-height: 100vh;
     transition: margin-left 0.3s ease, width 0.3s ease; 
@@ -33,9 +34,9 @@ h1, h2, h3, h4, h5, h6, p {
 .sidebar {
     width: 130px; 
     overflow: hidden;
-    border-right: 1px solid #5B3A29; 
+    /* border-right: 1px solid #5B3A29;  */
     transition: all 0.3s ease-in-out;
-    background: linear-gradient(135deg, #6B4F3B, #C8B19A); 
+    background: #79634e; 
     position: fixed;
     top: 60px;
     height: calc(100vh - 60px);
@@ -51,7 +52,7 @@ h1, h2, h3, h4, h5, h6, p {
     transform: translateX(-50%);
     width: 40px;
     height: 40px;
-    background: linear-gradient(45deg, #8C4F30, #5B3A29); 
+    background: #463223; 
     color: rgb(242, 215, 118);
     border: none;
     border-radius: 50%;
@@ -59,7 +60,7 @@ h1, h2, h3, h4, h5, h6, p {
     transition: all 0.3s ease-in-out;
 }
 .toggle-btn:hover {
-    background: linear-gradient(45deg, #5B3A29, #8C4F30);
+    background:#463223;
     transform: translateX(-50%) scale(1.1);
 }
 .sidebar-item a {
@@ -82,9 +83,10 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 5px 15px;
 }
 .navbar {
-    background: linear-gradient(135deg, #6B4F3B, #C8B19A); 
+    background: #79634e; 
     height: 60px; 
   padding: 0; 
+  
 }
 .form-control{
     height: 40px; 
@@ -165,7 +167,7 @@ padding: 5px;
     transition: all 0.3s ease-in-out;
 }
 .nav-item a:hover {
-    background: #8C4F30;
+    background: #463223;
     color: rgb(242, 215, 118) !important;
 }
 .nav-item button {
@@ -202,8 +204,8 @@ padding: 5px;
 }
 /* Dropdown menu adjustments */
 .dropdown-menu {
-  background: rgb(143, 102, 78,1) !important; /* Override inline style */
-  border: 1px solid #FFF8E7 !important; 
+  background: #79634e !important; /* Override inline style */
+  border: 1px solid none !important; 
   border-radius: 5px !important;
   padding: 5px 0 !important; /* Reduced padding to fit content */
   min-width: 150px !important; /* Ensure enough width */
@@ -214,14 +216,14 @@ padding: 5px;
 .custom-dropdown-item {
   color: rgb(242, 215, 118) !important; /* Match navbar text color */
   padding: 5px 8px !important; /* Tighter horizontal padding */
-  transition: background 0.3s ease-in-out !important; /* Smooth hover */
+  transition: background 0.2s ease-in-out !important; /* Smooth hover */
   width: 87% !important; /* Match container width */
   display: block !important; /* Ensure full block behavior */
 }
 
 /* Hover effect for all dropdown items */
 .custom-dropdown-item:hover {
-  background: #8C4F30 !important; /* Consistent hover background */
+  background: #463223 !important; /* Consistent hover background */
   color: rgb(242, 215, 118)!important; /* Text color on hover */
   border-radius: 4px;
 }/* Style for Account and Others labels */
@@ -282,9 +284,10 @@ button.signup-btn:hover {
     border: none;
     border-radius: 10px;
     padding: 20px;
+    color: #463223;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    /* background: linear-gradient(135deg, rgb(146, 113, 89), #C8B19A); */
+    background:  rgba(146, 113, 89,0.3);
     width: 250px;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -316,7 +319,7 @@ button.signup-btn:hover {
     font-size: 20px;
     font-weight: 600;
     margin-top: 15px;
-    color: rgb(139, 69, 45) !important;
+    color: #634732 !important;
 }
 .task-checkbox {
     /* Base styles already in inline style */
@@ -343,7 +346,7 @@ button.signup-btn:hover {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #8C4F30, #5B3A29);
+    background: #463223;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -482,7 +485,52 @@ button.signup-btn:hover {
     border-radius: 5px !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
   }
+  .nav-logo {
+    font-weight: bold;
+    font-size: 17px; /* Base font size */
+    font-family: 'Pacifico', cursive;
+    background: rgb(107, 79, 59); /* #6B4F3B */
+    color: #fff;
+    padding: 10px 20px; /* Keeps spacing but won’t grow */
+    border-radius: 5px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
+    transition: font-size 0.1s ease-in-out; /* Smooth font-size change */
+    width: 110px; /* Fixed width to contain "Taskify" */
+    height: 40px; /* Fixed height */
+    display: flex; /* Center text */
+    align-items: center; /* Vertical center */
+    justify-content: center; /* Horizontal center */
+    text-align: center; /* Ensure text stays centered */
+  }
+  .user-list {
+    background: linear-gradient(to right, #FFF8E7, #F5E8D5); /* Light cream gradient */
+    border: none;
+    padding: 20px;
+    transition: transform 0.2s, background 0.3s; /* Smooth transform and background change */
+    cursor: pointer;
+  }
   
+  /* Hover effect: Slightly darker background */
+  .user-list:hover {
+    background: linear-gradient(to right, #EAD9C5, #E0CBB0); /* Darker cream gradient */
+  }
+  .user-edit-list {
+    background: linear-gradient(to right, #FFF8E7, #F5E8D5); /* Light cream gradient */
+    border: none;
+    /* padding: 20px; */
+    transition: transform 0.2s, background 0.3s; /* Smooth transform and background change */
+    cursor: pointer;
+  }
+  
+  /* Hover effect: Slightly darker background */
+  .user-edit-list:hover {
+    background: linear-gradient(to right, #EAD9C5, #E0CBB0); /* Darker cream gradient */
+  }
+  /* Hover effect: Only font size increases */
+  .nav-logo:hover {
+    font-size: 18px; /* Increase font size */
+  }
   /* Group headers */
   .list-group-item-dark {
     background: linear-gradient(135deg, #8C4F30, #5B3A29) !important;

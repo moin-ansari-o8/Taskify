@@ -1,6 +1,6 @@
 # serializers.py
 from rest_framework import serializers
-from .models import User, Board, Card, Task
+from .models import User, Board, Card, Task, Notification
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,8 +37,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "created_at",
             "priority",
             "checked",
-            "order",  # Added order
-            "showNotification",
+            "order",
         ]
         read_only_fields = ["id", "created_at"]
 
@@ -56,9 +55,16 @@ class CardSerializer(serializers.ModelSerializer):
             "created_date_time",
             "updated_date_time",
             "tasks",
-            "order",  # Added order
+            "order",
         ]
         read_only_fields = ["id", "created_date_time", "updated_date_time"]
 
     def create(self, validated_data):
         return Card.objects.create(**validated_data)
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ["id", "task", "title", "due_date", "created_at", "dismissed"]
+        read_only_fields = ["id", "created_at"]

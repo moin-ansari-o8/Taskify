@@ -6,13 +6,19 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get("http://localhost:8000/users/");
-        setUsers(response.data);
+        // Filter out admin users
+        const nonAdminUsers = response.data.filter(
+          (user) => user.role !== "admin"
+        );
+        setUsers(nonAdminUsers);
         setLoading(false);
       } catch (err) {
         setError("Failed to load users. Please try again.");
@@ -26,12 +32,38 @@ const AdminDashboard = () => {
     navigate(`/admin-dashboard/edit-user/${username}`);
   };
 
+  const handleDeleteClick = (user) => {
+    setUserToDelete(user);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    if (!userToDelete) return;
+
+    try {
+      await axios.delete(
+        `http://localhost:8000/users/${userToDelete.username}/`
+      );
+      setUsers(users.filter((user) => user.username !== userToDelete.username));
+      setShowDeleteModal(false);
+      setUserToDelete(null);
+    } catch (err) {
+      setError("Failed to delete user. Please try again.");
+      setShowDeleteModal(false);
+    }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setUserToDelete(null);
+  };
+
   return (
     <div className="container min-vh-100 py-5">
       <div
         className="text-center mb-5"
         style={{
-          padding: "15px",
+          padding: "10px",
           background: "linear-gradient(135deg, #8C4F30, #5B3A29)",
           borderRadius: "15px",
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
@@ -61,75 +93,117 @@ const AdminDashboard = () => {
               {error}
             </div>
           ) : users.length === 0 ? (
-            <p className="text-center text-muted">No users found.</p>
+            <p className="text-center text-muted">No non-admin users found.</p>
           ) : (
             <div
-              className="list-group"
+              className="card"
               style={{
-                borderRadius: "10px",
-                overflow: "hidden",
-                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                borderRadius: "15px",
+                boxShadow: "0 4px 20px rgba(0, 0, 0, 0.5)",
+                background: "linear-gradient(to bottom, #FFF8E7, #E8D3B9)",
+                overflowY: "auto",
+                // height: "500px",
               }}
             >
-              {users.map((user) => (
-                <button
-                  key={user.username}
-                  className="list-group-item list-group-item-action"
-                  onClick={() => handleUserClick(user.username)}
-                  style={{
-                    background: "linear-gradient(to right, #FFF8E7, #F5E8D5)",
-                    border: "none",
-                    padding: "20px",
-                    marginBottom: "2px",
-                    transition: "transform 0.2s, background 0.3s",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.background =
-                      "linear-gradient(to right, #F5E8D5, #E8D3B9)")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.background =
-                      "linear-gradient(to right, #FFF8E7, #F5E8D5)")
-                  }
-                  onMouseDown={(e) =>
-                    (e.target.style.transform = "scale(0.98)")
-                  }
-                  onMouseUp={(e) => (e.target.style.transform = "scale(1)")}
+              <div className="card-body">
+                <h4
+                  className="card-title text-center"
+                  style={{ color: "#4A2F1A" }}
                 >
-                  <div className="d-flex align-items-center">
-                    <div
-                      className="rounded-circle me-3"
-                      style={{
-                        width: "40px",
-                        height: "40px",
-                        backgroundColor: "#8C4F30",
-                        color: "#FFF8E7",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: "bold",
-                        fontSize: "1.2rem",
-                      }}
+                  Users
+                </h4>
+                <ul className="list-group list-group-flush">
+                  {users.map((user) => (
+                    <li
+                      key={user.username}
+                      className="list-group-item d-flex justify-content-between align-items-center user-list"
+                      style={{ background: "", border: "none" }}
+                      onClick={() => handleUserClick(user.username)}
                     >
-                      {user.username.charAt(0).toUpperCase()}
-                    </div>
-                    <span
-                      style={{
-                        fontSize: "1.25rem",
-                        color: "#4A2F1A",
-                        fontWeight: "500",
-                      }}
-                    >
-                      {user.username}
-                    </span>
-                  </div>
-                </button>
-              ))}
+                      <div className="d-flex align-items-center">
+                        <div
+                          className="rounded-circle me-3"
+                          style={{
+                            width: "40px",
+                            height: "40px",
+                            backgroundColor: "#8C4F30",
+                            color: "#FFF8E7",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            fontWeight: "bold",
+                            fontSize: "1.2rem",
+                          }}
+                        >
+                          {user.username.charAt(0).toUpperCase()}
+                        </div>
+                        <span
+                          style={{
+                            fontSize: "1.25rem",
+                            color: "#4A2F1A",
+                            fontWeight: "500",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {user.username}
+                        </span>
+                      </div>
+                      <i
+                        className="bi bi-trash"
+                        style={{ cursor: "pointer", color: "#DC3545" }}
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering handleUserClick
+                          handleDeleteClick(user);
+                        }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Confirm Deletion</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={cancelDelete}
+                />
+              </div>
+              <div className="modal-body">
+                Are you sure you want to delete {userToDelete?.username}?
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={cancelDelete}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={confirmDelete}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -4,6 +4,17 @@ import axios from "axios";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Card from "../components/Card";
 
+const styles = `
+  @keyframes strike {
+    from {
+      width: 0%;
+    }
+    to {
+      width: 100%;
+    }
+  }
+`;
+
 const TaskModal = ({
   showModal,
   onClose,
@@ -16,12 +27,11 @@ const TaskModal = ({
   const [taskTitle, setTaskTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [priority, setPriority] = useState("medium");
-  const [dueDate, setDueDate] = useState(""); // ISO format for datetime-local
+  const [dueDate, setDueDate] = useState("");
   const [order, setOrder] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Helper function to format ISO date to dd-mm-yy HH:MM for display (if needed)
   const formatDateForDisplay = (isoDate) => {
     if (!isoDate) return "";
     const date = new Date(isoDate);
@@ -33,7 +43,6 @@ const TaskModal = ({
     return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
 
-  // Helper to convert ISO to datetime-local compatible format (YYYY-MM-DDTHH:MM)
   const formatForDateTimeLocal = (isoDate) => {
     if (!isoDate) return "";
     const date = new Date(isoDate);
@@ -45,7 +54,6 @@ const TaskModal = ({
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-  // Fetch task data when editing
   useEffect(() => {
     if (task && showModal) {
       setLoading(true);
@@ -56,7 +64,7 @@ const TaskModal = ({
           setTaskTitle(taskData.task_title || "");
           setDesc(taskData.desc || "");
           setPriority(taskData.priority || "medium");
-          setDueDate(formatForDateTimeLocal(taskData.due_date)); // For datetime-local
+          setDueDate(formatForDateTimeLocal(taskData.due_date));
           setOrder(taskData.order || 0);
           setLoading(false);
         })
@@ -198,10 +206,6 @@ const TaskModal = ({
                   }}
                   disabled={loading}
                 />
-                {/* Optional: Display formatted date beside it
-                <span className="ms-2" style={{ color: "#FFF8E7" }}>
-                  {dueDate ? formatDateForDisplay(dueDate) : ""}
-                </span> */}
               </div>
             </div>
             <div className="mb-3">
@@ -226,7 +230,7 @@ const TaskModal = ({
               className="btn btn-success btn-lg rounded-pill px-5 me-2"
               style={{ backgroundColor: "#4CAF50", borderColor: "#4A2F1A" }}
               onClick={() => {
-                const isoDueDate = dueDate || null; // Already in ISO format from datetime-local
+                const isoDueDate = dueDate || null;
                 onSubmit({
                   taskTitle,
                   desc,
@@ -537,6 +541,14 @@ const Cards = () => {
   const [clickedTaskId, setClickedTaskId] = useState(null);
   const isDragging = useRef(false);
   const addCardRef = useRef(null);
+
+  // Inject the styles into the document head
+  useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
+    return () => document.head.removeChild(styleSheet);
+  }, []);
 
   const fetchCards = useCallback(() => {
     if (username && boardId && !isDragging.current) {
@@ -885,7 +897,7 @@ const Cards = () => {
           padding: "10px",
           marginTop: "2.5rem",
           marginBottom: "0.5rem",
-          backgroundColor: "rgba(0, 0, 0, 0.1)",
+          backgroundColor: "rgba(104, 73, 47, 0.5)",
         }}
       >
         <h2
@@ -906,7 +918,9 @@ const Cards = () => {
                 className="d-flex flex-nowrap overflow-auto py-2 ps-2 pe-0 custom-scrollbar"
                 style={{
                   gap: "10px",
-                  background: "linear-gradient(90deg, #8B5A2B, #D4A373)",
+                  // background: "linear-gradient(90deg, #8B5A2B, #D4A373)",
+                  background:
+                    "linear-gradient(50deg,rgb(71, 46, 23),rgba(124, 83, 41, 0.92))",
                   borderRadius: "4px",
                   minHeight: "calc(100vh - 135px)",
                   boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
@@ -990,169 +1004,287 @@ const Cards = () => {
                                       boxSizing: "border-box",
                                     }}
                                   >
-                                    {card.tasks.map((task, index) => (
-                                      <Draggable
-                                        key={task.id}
-                                        draggableId={String(task.id)}
-                                        index={index}
-                                      >
-                                        {(provided) => (
-                                          <li
-                                            className="tsk-itm my-1 rounded-1"
-                                            ref={provided.innerRef}
-                                            {...provided.draggableProps}
-                                            {...provided.dragHandleProps}
-                                          >
-                                            <div
-                                              className="d-flex align-items-center w-100"
+                                    {card.tasks.map((task, index) => {
+                                      const currentDateTime = new Date(); // Real-time current date
+                                      const dueDateTime = task.due_date
+                                        ? new Date(task.due_date)
+                                        : null;
+                                      const isOverdue =
+                                        dueDateTime &&
+                                        dueDateTime <= currentDateTime;
+
+                                      return (
+                                        <Draggable
+                                          key={task.id}
+                                          draggableId={String(task.id)}
+                                          index={index}
+                                        >
+                                          {(provided) => (
+                                            <li
+                                              className="tsk-itm my-1 rounded-1"
+                                              ref={provided.innerRef}
+                                              {...provided.draggableProps}
+                                              {...provided.dragHandleProps}
                                               style={{
                                                 position: "relative",
-                                                padding: "0 8px",
-                                                boxSizing: "border-box",
+                                                ...provided.draggableProps
+                                                  .style,
                                               }}
                                               onMouseEnter={(e) => {
-                                                const checkbox =
+                                                if (!isOverdue) {
+                                                  const checkbox =
+                                                    e.currentTarget.querySelector(
+                                                      ".task-checkbox"
+                                                    );
+                                                  const editIcon =
+                                                    e.currentTarget.querySelector(
+                                                      ".task-edit"
+                                                    );
+                                                  if (checkbox) {
+                                                    checkbox.style.opacity =
+                                                      "1";
+                                                    checkbox.style.transform =
+                                                      "translateX(0)";
+                                                  }
+                                                  if (editIcon) {
+                                                    editIcon.style.opacity =
+                                                      "1";
+                                                    editIcon.style.transform =
+                                                      "translateX(0)";
+                                                  }
+                                                }
+                                                const deleteIcon =
                                                   e.currentTarget.querySelector(
-                                                    ".task-checkbox"
+                                                    ".task-delete"
                                                   );
-                                                const editIcon =
-                                                  e.currentTarget.querySelector(
-                                                    ".task-edit"
-                                                  );
-                                                checkbox.style.opacity = "1";
-                                                checkbox.style.transform =
-                                                  "translateX(0)";
-                                                editIcon.style.opacity = "1";
-                                                editIcon.style.transform =
-                                                  "translateX(0)";
+                                                if (deleteIcon) {
+                                                  deleteIcon.style.opacity =
+                                                    "1";
+                                                  deleteIcon.style.transform =
+                                                    "translateX(0)";
+                                                }
                                               }}
                                               onMouseLeave={(e) => {
-                                                const checkbox =
+                                                if (!isOverdue) {
+                                                  const checkbox =
+                                                    e.currentTarget.querySelector(
+                                                      ".task-checkbox"
+                                                    );
+                                                  const editIcon =
+                                                    e.currentTarget.querySelector(
+                                                      ".task-edit"
+                                                    );
+                                                  if (checkbox) {
+                                                    checkbox.style.opacity =
+                                                      "0";
+                                                    checkbox.style.transform =
+                                                      "translateX(-3px)";
+                                                  }
+                                                  if (editIcon) {
+                                                    editIcon.style.opacity =
+                                                      "0";
+                                                    editIcon.style.transform =
+                                                      "translateX(3px)";
+                                                  }
+                                                }
+                                                const deleteIcon =
                                                   e.currentTarget.querySelector(
-                                                    ".task-checkbox"
+                                                    ".task-delete"
                                                   );
-                                                const editIcon =
-                                                  e.currentTarget.querySelector(
-                                                    ".task-edit"
-                                                  );
-                                                checkbox.style.opacity = "0";
-                                                checkbox.style.transform =
-                                                  "translateX(-3px)";
-                                                editIcon.style.opacity = "0";
-                                                editIcon.style.transform =
-                                                  "translateX(3px)";
+                                                if (deleteIcon) {
+                                                  deleteIcon.style.opacity =
+                                                    "0";
+                                                  deleteIcon.style.transform =
+                                                    "translateX(3px)";
+                                                }
                                               }}
                                             >
-                                              <input
-                                                type="checkbox"
-                                                checked={task.checked}
-                                                onChange={() =>
-                                                  handleTaskCheck(
-                                                    task.id,
-                                                    task.checked
-                                                  )
-                                                }
-                                                className="task-checkbox my-2"
+                                              <div
+                                                className="d-flex align-items-center w-100"
                                                 style={{
-                                                  opacity: 0, // Hidden by default, shown on hover
-                                                  width: "20px",
-                                                  height: "20px",
-                                                  margin: "0 8px 0 0",
-                                                  transform: "translateX(-3px)",
-                                                  transition:
-                                                    "opacity 0.3s ease, transform 0.3s ease",
                                                   position: "relative",
-                                                  zIndex: 3,
-                                                  appearance: "none", // Remove default checkbox look
-                                                  WebkitAppearance: "none", // For Safari
-                                                  border: "2px solid #8C4F30", // Match your gradient theme
-                                                  borderRadius: "4px", // Slight rounding
-                                                  background: task.checked
-                                                    ? "linear-gradient(45deg, #8C4F30, #5B3A29)"
-                                                    : "transparent", // Gradient when checked
-                                                }}
-                                              />
-                                              <span
-                                                className="task-title"
-                                                style={{
-                                                  flex: "1",
-                                                  textAlign: "center",
-                                                  whiteSpace: "nowrap",
-                                                  overflow: "hidden",
-                                                  textOverflow: "ellipsis",
                                                   padding: "0 8px",
+                                                  boxSizing: "border-box",
                                                 }}
                                               >
-                                                {task.task_title}
-                                              </span>
-                                              <span
-                                                className={`badge position-absolute`}
-                                                style={{
-                                                  top: "10px",
-                                                  right: "-9px", // Adjusted to make space for edit button
-                                                  width: "1%",
-                                                  height: "14px",
-                                                  borderTopLeftRadius: "0",
-                                                  borderTopRightRadius: "3px",
-                                                  borderBottomRightRadius:
-                                                    "3px",
-                                                  borderBottomLeftRadius: "0",
-                                                  backgroundColor:
-                                                    task.priority === "high"
-                                                      ? "#D9534F" // Red
-                                                      : task.priority ===
-                                                        "medium"
-                                                      ? "#FFC107" // Yellow
-                                                      : "#28A745", // Green
-                                                  color: "#FFF", // White text/icon inside badge
-                                                  display: "flex",
-                                                  alignItems: "center",
-                                                  justifyContent: "center",
-                                                  fontSize: "12px",
-                                                  boxShadow:
-                                                    "0 2px 4px rgba(139, 90, 43, 0.5)",
-                                                  zIndex: 2, // Ensures badge is below edit button but above text
-                                                }}
-                                              >
-                                                {/* {task.priority === "high"
-                                                  ? "H"
-                                                  : task.priority === "medium"
-                                                  ? "M"
-                                                  : "L"} */}
-                                              </span>
-                                              <button
-                                                className="task-edit btn btn-sm btn-info "
-                                                onClick={() =>
-                                                  handleTaskClick(card.id, task)
-                                                }
-                                                style={{
-                                                  opacity: 0,
-                                                  width: "24px",
-                                                  height: "24px",
-                                                  transform: "translateX(3px)",
-                                                  transition:
-                                                    "opacity 0.3s ease, transform 0.3s ease",
-                                                  position: "relative",
-                                                  zIndex: 3,
-                                                  padding: "0",
-                                                  background:
-                                                    "linear-gradient(45deg, #8C4F30, #5B3A29)",
-                                                  border: "none",
-                                                  display: "flex",
-                                                  alignItems: "center",
-                                                  justifyContent: "center",
-                                                }}
-                                              >
-                                                <i
-                                                  className="bi bi-pencil"
-                                                  style={{ fontSize: "14px" }}
-                                                ></i>
-                                              </button>
-                                            </div>
-                                          </li>
-                                        )}
-                                      </Draggable>
-                                    ))}
+                                                <div
+                                                  style={{
+                                                    width: "25px",
+                                                    height: "38px",
+                                                    margin: "0 8px 0 0",
+                                                  }}
+                                                >
+                                                  {!isOverdue && (
+                                                    <input
+                                                      type="checkbox"
+                                                      checked={task.checked}
+                                                      onChange={() =>
+                                                        handleTaskCheck(
+                                                          task.id,
+                                                          task.checked
+                                                        )
+                                                      }
+                                                      className="task-checkbox my-2"
+                                                      style={{
+                                                        opacity: 0,
+                                                        width: "20px",
+                                                        height: "20px",
+                                                        transform:
+                                                          "translateX(-3px)",
+                                                        transition:
+                                                          "opacity 0.3s ease, transform 0.3s ease",
+                                                        position: "absolute",
+                                                        zIndex: 3,
+                                                        appearance: "none",
+                                                        WebkitAppearance:
+                                                          "none",
+                                                        border:
+                                                          "2px solid #8C4F30",
+                                                        borderRadius: "4px",
+                                                        background: task.checked
+                                                          ? "linear-gradient(45deg, #8C4F30, #5B3A29)"
+                                                          : "transparent",
+                                                      }}
+                                                    />
+                                                  )}
+                                                </div>
+                                                <span
+                                                  className="task-title"
+                                                  style={{
+                                                    flex: "1",
+                                                    textAlign: "center",
+                                                    whiteSpace: "nowrap",
+                                                    overflow: "hidden",
+                                                    textOverflow: "ellipsis",
+                                                    padding: "0 8px",
+                                                    position: "relative",
+                                                  }}
+                                                >
+                                                  {task.task_title}
+                                                  {isOverdue && (
+                                                    <span
+                                                      className="strikethrough"
+                                                      style={{
+                                                        position: "absolute",
+                                                        top: "50%",
+                                                        left: 0,
+                                                        height: "2px",
+                                                        backgroundColor:
+                                                          "#D9534F",
+                                                        width: "0%",
+                                                        animation:
+                                                          "strike 0.5s linear forwards",
+                                                        transform:
+                                                          "translateY(-50%)",
+                                                      }}
+                                                    />
+                                                  )}
+                                                </span>
+                                                <span
+                                                  className="badge position-absolute"
+                                                  style={{
+                                                    top: "10px",
+                                                    right: "-9px",
+                                                    width: "1%",
+                                                    height: "14px",
+                                                    borderTopLeftRadius: "0",
+                                                    borderTopRightRadius: "3px",
+                                                    borderBottomRightRadius:
+                                                      "3px",
+                                                    borderBottomLeftRadius: "0",
+                                                    backgroundColor:
+                                                      task.priority === "high"
+                                                        ? "#D9534F"
+                                                        : task.priority ===
+                                                          "medium"
+                                                        ? "#FFC107"
+                                                        : "#28A745",
+                                                    color: "#FFF",
+                                                    display: "flex",
+                                                    alignItems: "center",
+                                                    justifyContent: "center",
+                                                    fontSize: "12px",
+                                                    boxShadow:
+                                                      "0 2px 4px rgba(139, 90, 43, 0.5)",
+                                                    zIndex: 2,
+                                                  }}
+                                                />
+                                                {!isOverdue ? (
+                                                  <button
+                                                    className="task-edit btn btn-sm btn-info"
+                                                    onClick={() =>
+                                                      handleTaskClick(
+                                                        card.id,
+                                                        task
+                                                      )
+                                                    }
+                                                    style={{
+                                                      opacity: 0,
+                                                      width: "24px",
+                                                      height: "24px",
+                                                      transform:
+                                                        "translateX(3px)",
+                                                      transition:
+                                                        "opacity 0.3s ease, transform 0.3s ease",
+                                                      position: "relative",
+                                                      zIndex: 3,
+                                                      padding: "0",
+                                                      background:
+                                                        "linear-gradient(45deg, #8C4F30, #5B3A29)",
+                                                      border: "none",
+                                                      display: "flex",
+                                                      alignItems: "center",
+                                                      justifyContent: "center",
+                                                    }}
+                                                  >
+                                                    <i
+                                                      className="bi bi-pencil"
+                                                      style={{
+                                                        fontSize: "14px",
+                                                      }}
+                                                    ></i>
+                                                  </button>
+                                                ) : (
+                                                  <button
+                                                    className="task-delete btn btn-sm btn-danger"
+                                                    onClick={() => {
+                                                      setSelectedTask(task);
+                                                      setShowDeleteModal(true);
+                                                      setDeleteType("task");
+                                                    }}
+                                                    style={{
+                                                      opacity: 0,
+                                                      width: "24px",
+                                                      height: "24px",
+                                                      transform:
+                                                        "translateX(3px)",
+                                                      transition:
+                                                        "opacity 0.3s ease, transform 0.3s ease",
+                                                      position: "relative",
+                                                      zIndex: 3,
+                                                      padding: "0",
+                                                      background:
+                                                        "linear-gradient(45deg, #D9534F, #C9302C)",
+                                                      border: "none",
+                                                      display: "flex",
+                                                      alignItems: "center",
+                                                      justifyContent: "center",
+                                                    }}
+                                                  >
+                                                    <i
+                                                      className="bi bi-trash"
+                                                      style={{
+                                                        fontSize: "14px",
+                                                      }}
+                                                    ></i>
+                                                  </button>
+                                                )}
+                                              </div>
+                                            </li>
+                                          )}
+                                        </Draggable>
+                                      );
+                                    })}
                                     {provided.placeholder}
                                   </ul>
                                 ) : (
