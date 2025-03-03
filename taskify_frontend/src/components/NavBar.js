@@ -151,7 +151,11 @@ class NavBar extends Component {
       !e.target.closest(".nav-srch") &&
       !e.target.closest(".search-results")
     ) {
-      this.setState({ showResults: false });
+      this.setState({
+        searchQuery: "", // Clear the search input
+        showResults: false, // Hide results
+        searchResults: { boards: [], cards: [], tasks: [] }, // Reset results
+      });
     }
     if (
       !e.target.closest(".notification-area") &&
@@ -327,9 +331,9 @@ class NavBar extends Component {
                         outline: "none",
                       }}
                     />
-                    <button className="btn srch" type="submit">
+                    {/* <button className="btn srch" type="submit">
                       <i className="bi bi-search"></i>
-                    </button>
+                    </button> */}
                   </form>
                   {showResults && (hasBoards || hasCards || hasTasks) && (
                     <div
