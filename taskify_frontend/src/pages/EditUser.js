@@ -13,6 +13,8 @@ const EditUser = () => {
   const [error, setError] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null); // { type: "board" | "card" | "task", id: number }
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const navigate = useNavigate();
 
   // Fetch boards on mount
@@ -81,7 +83,6 @@ const EditUser = () => {
   // Handle task click (placeholder for future edit functionality)
   const handleTaskClick = (taskId) => {
     console.log(`Task ${taskId} clicked - edit functionality TBD`);
-    // Add task edit logic here if needed
   };
 
   // Handle back to cards
@@ -130,6 +131,50 @@ const EditUser = () => {
       setError(`Failed to delete ${itemToDelete.type}.`);
       setShowDeleteModal(false);
     }
+  };
+
+  // New function to handle info button click
+  const handleInfoClick = (item, type) => {
+    setSelectedItem({ ...item, type });
+    setShowInfoModal(true);
+  };
+
+  // New function to close info modal
+  const closeInfoModal = () => {
+    setShowInfoModal(false);
+    setSelectedItem(null);
+  };
+
+  // Function to format date to "12th Jan, 12:03"
+  const formatDate = (dateString) => {
+    if (!dateString) return "Not set";
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = monthNames[date.getMonth()];
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+
+    // Add ordinal suffix (st, nd, rd, th)
+    let suffix = "th";
+    if (day === 1 || day === 21 || day === 31) suffix = "st";
+    else if (day === 2 || day === 22) suffix = "nd";
+    else if (day === 3 || day === 23) suffix = "rd";
+
+    return `${day}${suffix} ${month}, ${hours}:${minutes}`;
   };
 
   return (
@@ -196,11 +241,24 @@ const EditUser = () => {
                       <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                         {board.board_title}
                       </span>
-                      <i
-                        className="bi bi-trash"
-                        style={{ cursor: "pointer", color: "#DC3545" }}
-                        onClick={() => openDeleteModal("board", board.id)}
-                      />
+                      <div>
+                        <i
+                          className="bi bi-info-circle me-2"
+                          style={{ cursor: "pointer", color: "#4A2F1A" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleInfoClick(board, "board");
+                          }}
+                        />
+                        <i
+                          className="bi bi-trash"
+                          style={{ cursor: "pointer", color: "#DC3545" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openDeleteModal("board", board.id);
+                          }}
+                        />
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -260,11 +318,24 @@ const EditUser = () => {
                         <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                           {task.task_title}
                         </span>
-                        <i
-                          className="bi bi-trash"
-                          style={{ cursor: "pointer", color: "#DC3545" }}
-                          onClick={() => openDeleteModal("task", task.id)}
-                        />
+                        <div>
+                          <i
+                            className="bi bi-info-circle me-2"
+                            style={{ cursor: "pointer", color: "#4A2F1A" }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleInfoClick(task, "task");
+                            }}
+                          />
+                          <i
+                            className="bi bi-trash"
+                            style={{ cursor: "pointer", color: "#DC3545" }}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              openDeleteModal("task", task.id);
+                            }}
+                          />
+                        </div>
                       </li>
                     ))}
                   </ul>
@@ -283,11 +354,24 @@ const EditUser = () => {
                       <span style={{ color: "#4A2F1A", cursor: "pointer" }}>
                         {card.card_title}
                       </span>
-                      <i
-                        className="bi bi-trash"
-                        style={{ cursor: "pointer", color: "#DC3545" }}
-                        onClick={() => openDeleteModal("card", card.id)}
-                      />
+                      <div>
+                        <i
+                          className="bi bi-info-circle me-2"
+                          style={{ cursor: "pointer", color: "#4A2F1A" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleInfoClick(card, "card");
+                          }}
+                        />
+                        <i
+                          className="bi bi-trash"
+                          style={{ cursor: "pointer", color: "#DC3545" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openDeleteModal("card", card.id);
+                          }}
+                        />
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -330,6 +414,117 @@ const EditUser = () => {
                   onClick={handleDelete}
                 >
                   Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Info Modal */}
+      {showInfoModal && selectedItem && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  {selectedItem.type.charAt(0).toUpperCase() +
+                    selectedItem.type.slice(1)}{" "}
+                  Details
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeInfoModal}
+                />
+              </div>
+              <div className="modal-body">
+                {selectedItem.type === "board" && (
+                  <>
+                    <p>
+                      <strong>ID:</strong> {selectedItem.id}
+                    </p>
+                    <p>
+                      <strong>Title:</strong> {selectedItem.board_title}
+                    </p>
+                    <p>
+                      <strong>User ID:</strong> {selectedItem.user}
+                    </p>
+                  </>
+                )}
+                {selectedItem.type === "card" && (
+                  <>
+                    <p>
+                      <strong>ID:</strong> {selectedItem.id}
+                    </p>
+                    <p>
+                      <strong>Title:</strong> {selectedItem.card_title}
+                    </p>
+                    <p>
+                      <strong>Board ID:</strong> {selectedItem.board}
+                    </p>
+                    <p>
+                      <strong>Category:</strong> {selectedItem.category}
+                    </p>
+                    <p>
+                      <strong>Created:</strong>{" "}
+                      {formatDate(selectedItem.created_date_time)}
+                    </p>
+                    <p>
+                      <strong>Updated:</strong>{" "}
+                      {formatDate(selectedItem.updated_date_time)}
+                    </p>
+                    <p>
+                      <strong>Order:</strong> {selectedItem.order}
+                    </p>
+                  </>
+                )}
+                {selectedItem.type === "task" && (
+                  <>
+                    <p>
+                      <strong>ID:</strong> {selectedItem.id}
+                    </p>
+                    <p>
+                      <strong>Title:</strong> {selectedItem.task_title}
+                    </p>
+                    <p>
+                      <strong>Description:</strong>{" "}
+                      {selectedItem.desc || "None"}
+                    </p>
+                    <p>
+                      <strong>Card ID:</strong> {selectedItem.card}
+                    </p>
+                    <p>
+                      <strong>Due Date:</strong>{" "}
+                      {formatDate(selectedItem.due_date)}
+                    </p>
+                    <p>
+                      <strong>Created:</strong>{" "}
+                      {formatDate(selectedItem.created_at)}
+                    </p>
+                    <p>
+                      <strong>Priority:</strong> {selectedItem.priority}
+                    </p>
+                    <p>
+                      <strong>Checked:</strong>{" "}
+                      {selectedItem.checked ? "Yes" : "No"}
+                    </p>
+                    <p>
+                      <strong>Order:</strong> {selectedItem.order}
+                    </p>
+                  </>
+                )}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={closeInfoModal}
+                >
+                  Close
                 </button>
               </div>
             </div>

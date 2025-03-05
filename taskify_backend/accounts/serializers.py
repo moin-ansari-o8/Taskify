@@ -6,7 +6,7 @@ from .models import User, Board, Card, Task, Notification
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["username", "password", "email", "role"]
+        fields = ["username", "password", "plain_password", "email", "role"]
 
 
 class BoardSerializer(serializers.ModelSerializer):

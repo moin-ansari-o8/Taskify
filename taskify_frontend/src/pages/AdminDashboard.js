@@ -8,6 +8,8 @@ const AdminDashboard = () => {
   const [error, setError] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -56,6 +58,16 @@ const AdminDashboard = () => {
   const cancelDelete = () => {
     setShowDeleteModal(false);
     setUserToDelete(null);
+  };
+
+  const handleInfoClick = (user) => {
+    setSelectedUser(user);
+    setShowInfoModal(true);
+  };
+
+  const closeInfoModal = () => {
+    setShowInfoModal(false);
+    setSelectedUser(null);
   };
 
   return (
@@ -148,14 +160,24 @@ const AdminDashboard = () => {
                           {user.username}
                         </span>
                       </div>
-                      <i
-                        className="bi bi-trash"
-                        style={{ cursor: "pointer", color: "#DC3545" }}
-                        onClick={(e) => {
-                          e.stopPropagation(); // Prevent triggering handleUserClick
-                          handleDeleteClick(user);
-                        }}
-                      />
+                      <div>
+                        <i
+                          className="bi bi-info-circle me-3"
+                          style={{ cursor: "pointer", color: "blue" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleInfoClick(user);
+                          }}
+                        />
+                        <i
+                          className="bi bi-trash"
+                          style={{ cursor: "pointer", color: "#DC3545" }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteClick(user);
+                          }}
+                        />
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -198,6 +220,51 @@ const AdminDashboard = () => {
                   onClick={confirmDelete}
                 >
                   Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Info Modal */}
+      {showInfoModal && selectedUser && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", backgroundColor: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">User Details</h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeInfoModal}
+                />
+              </div>
+              <div className="modal-body">
+                <p>
+                  <strong>Username:</strong> {selectedUser.username}
+                </p>
+                {/* <p>
+                  <strong>Password:</strong>{" "}
+                  {selectedUser.plain_password || "Not available"}
+                </p> */}
+                <p>
+                  <strong>Email:</strong> {selectedUser.email}
+                </p>
+                <p>
+                  <strong>Role:</strong> {selectedUser.role}
+                </p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={closeInfoModal}
+                >
+                  Close
                 </button>
               </div>
             </div>

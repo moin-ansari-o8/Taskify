@@ -5,13 +5,17 @@ from django.contrib.auth.hashers import make_password, check_password
 
 class User(models.Model):
     username = models.CharField(max_length=50, unique=True)
-    password = models.CharField(max_length=128)
+    password = models.CharField(max_length=128)  # Hashed password
+    plain_password = models.CharField(
+        max_length=128, blank=True, null=True
+    )  # New field for plain password
     email = models.EmailField(max_length=100, unique=True)
     role = models.CharField(max_length=10, default="user")
 
     def save(self, *args, **kwargs):
         if not self.password.startswith("pbkdf2_sha256$"):
-            self.password = make_password(self.password)
+            self.plain_password = self.password  # Store plain password before hashing
+            self.password = make_password(self.password)  # Hash the password
         super().save(*args, **kwargs)
 
     def check_password(self, raw_password):
