@@ -1,0 +1,109 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="UserMasterPage.master.cs"
+    Inherits="UserMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>TrendAura</title>
+    <link rel="icon" href="Images/icons/images.png" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link href="css/Custom.css" rel="stylesheet" />
+   
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <form id="form1" runat="server" style="background-color: #fbdcd3; padding-bottom: 50px;">
+   
+    <nav class="navbar navbar-expand-lg">
+            <div class="container">
+               
+                <asp:HyperLink ID="hlLogo" runat="server" CssClass="navbar-brand" NavigateUrl="HomePage.aspx">
+                    <img src="Images/icons/images.png" alt="TrendAura Logo" /> TrendAura
+                </asp:HyperLink>
+
+               
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+               
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto"> 
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlHome" runat="server" CssClass="nav-link" NavigateUrl="HomePage.aspx">Home</asp:HyperLink>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <asp:HyperLink ID="hlProducts" runat="server" CssClass="nav-link dropdown-toggle" NavigateUrl="Products.aspx" Attributes="role:button" data-bs-toggle="dropdown" aria-expanded="false">Products</asp:HyperLink>
+                            <ul class="dropdown-menu">
+                               <li><asp:HyperLink ID="hlMen" runat="server" CssClass="dropdown-item" NavigateUrl="mwk.aspx?category=men">Men</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="hlWomen" runat="server" CssClass="dropdown-item" NavigateUrl="mwk.aspx?category=women">Women</asp:HyperLink></li>
+                                <li><asp:HyperLink ID="hlKids" runat="server" CssClass="dropdown-item" NavigateUrl="mwk.aspx?category=kids">Kids</asp:HyperLink></li>
+                            </ul>
+                        </li><li class="nav-item">
+                            <asp:HyperLink ID="hlmMyCart" runat="server" CssClass="nav-link" NavigateUrl="MyCart.aspx">My Cart</asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlAboutUs" runat="server" CssClass="nav-link" NavigateUrl="AboutUs.aspx">About Us</asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:HyperLink ID="hlContactUs" runat="server" CssClass="nav-link" NavigateUrl="ContactUs.aspx">Contact Us</asp:HyperLink>
+                        </li>
+                        <li class="nav-item">
+                            <asp:Button ID="btnSignIn" runat="server" Text="Sign In" CssClass="btn btn-outline-danger mx-1" OnClick="signIn" Visible="true" />
+                        </li>
+                        <li class="nav-item">
+                            <asp:Button ID="btnSignUp" runat="server" Text="Sign Up" CssClass="btn btn-outline-danger mx-1" OnClick="signUp" Visible="true" />
+                        </li>
+                        <li class="nav-item">
+                            <asp:Button ID="btnSignOut" runat="server" Text="Sign Out" CssClass="btn btn-outline-danger mx-1" OnClick="signOut" Visible="true" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+   
+    <div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+    <footer>
+        <div class="container">
+            <div class="row">
+              
+                <div class="col-md-6">
+                    <asp:Label ID="lblAbout" runat="server" CssClass="form-label" Text="About"></asp:Label>
+                    <p>Welcome to TrendAura! We offer premium-quality clothing for men, women, and kids. Explore our collections and stay fashionable.</p>
+                </div>
+                
+                <div class="col-md-3">
+                    <asp:Label ID="lblQuickLinks" runat="server" CssClass="form-label" Text="Quick Links"></asp:Label>
+                    <ul class="list-unstyled">
+                        <li><asp:HyperLink ID="hlFooterHome" runat="server" CssClass="all-link" NavigateUrl="HomePage.aspx">Home</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlFooterAboutUs" runat="server" CssClass="all-link" NavigateUrl="AboutUs.aspx">About Us</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlFooterContactUs" runat="server" CssClass="all-link" NavigateUrl="ContactUs.aspx">Contact Us</asp:HyperLink></li>
+                        <li><asp:HyperLink ID="hlFooterProducts" runat="server" CssClass="all-link" NavigateUrl="Products.aspx">Products</asp:HyperLink></li>
+                    </ul>
+                </div>
+               
+                <div class="col-md-3 text-md-end">
+                    <asp:Label ID="lblAdmin" runat="server" CssClass="form-label" Text="Admin"></asp:Label>
+                    <ul class="list-unstyled">
+                        <li><asp:HyperLink ID="hlAdminLogin" runat="server" CssClass="text-decoration-none" NavigateUrl="SignIn.aspx">Admin Login</asp:HyperLink></li>
+                    </ul>
+                    <p class="mt-3">
+                        <asp:HyperLink ID="hlBackToTop" runat="server" CssClass="btn btn-sm all-btn" NavigateUrl="#">Back to Top</asp:HyperLink>
+                    </p>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <asp:Label ID="lblFooterCopyRight" runat="server" CssClass="form-label" Text="&copy; 2024 TrendAura &middot; All Rights Reserved."></asp:Label>
+            </div>
+        </div>
+    </footer>
+   
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

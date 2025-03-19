@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="DatabaseConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="DatabaseConnectionString (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.DatabaseConnectionString.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="DataSet1" msprop:Generator_DataSetName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="product_table" msprop:Generator_TableClassName="product_tableDataTable" msprop:Generator_TableVarName="tableproduct_table" msprop:Generator_TablePropName="product_table" msprop:Generator_RowDeletingName="product_tableRowDeleting" msprop:Generator_RowChangingName="product_tableRowChanging" msprop:Generator_RowEvHandlerName="product_tableRowChangeEventHandler" msprop:Generator_RowDeletedName="product_tableRowDeleted" msprop:Generator_UserTableName="product_table" msprop:Generator_RowChangedName="product_tableRowChanged" msprop:Generator_RowEvArgName="product_tableRowChangeEvent" msprop:Generator_RowClassName="product_tableRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PId" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnPId" msprop:Generator_ColumnPropNameInRow="PId" msprop:Generator_ColumnPropNameInTable="PIdColumn" msprop:Generator_UserColumnName="PId" type="xs:int" />
+              <xs:element name="PName" msprop:Generator_ColumnVarNameInTable="columnPName" msprop:Generator_ColumnPropNameInRow="PName" msprop:Generator_ColumnPropNameInTable="PNameColumn" msprop:Generator_UserColumnName="PName">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Price" msprop:Generator_ColumnVarNameInTable="columnPrice" msprop:Generator_ColumnPropNameInRow="Price" msprop:Generator_ColumnPropNameInTable="PriceColumn" msprop:Generator_UserColumnName="Price" type="xs:decimal" />
+              <xs:element name="PQuantity" msprop:Generator_ColumnVarNameInTable="columnPQuantity" msprop:Generator_ColumnPropNameInRow="PQuantity" msprop:Generator_ColumnPropNameInTable="PQuantityColumn" msprop:Generator_UserColumnName="PQuantity" type="xs:int" />
+              <xs:element name="PDesc" msprop:Generator_ColumnVarNameInTable="columnPDesc" msprop:Generator_ColumnPropNameInRow="PDesc" msprop:Generator_ColumnPropNameInTable="PDescColumn" msprop:Generator_UserColumnName="PDesc">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2147483647" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PCat" msprop:Generator_ColumnVarNameInTable="columnPCat" msprop:Generator_ColumnPropNameInRow="PCat" msprop:Generator_ColumnPropNameInTable="PCatColumn" msprop:Generator_UserColumnName="PCat">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PSubCat" msprop:Generator_ColumnVarNameInTable="columnPSubCat" msprop:Generator_ColumnPropNameInRow="PSubCat" msprop:Generator_ColumnPropNameInTable="PSubCatColumn" msprop:Generator_UserColumnName="PSubCat">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PSize" msprop:Generator_ColumnVarNameInTable="columnPSize" msprop:Generator_ColumnPropNameInRow="PSize" msprop:Generator_ColumnPropNameInTable="PSizeColumn" msprop:Generator_UserColumnName="PSize">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PBrand" msprop:Generator_ColumnVarNameInTable="columnPBrand" msprop:Generator_ColumnPropNameInRow="PBrand" msprop:Generator_ColumnPropNameInTable="PBrandColumn" msprop:Generator_UserColumnName="PBrand">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="PImg" msprop:Generator_ColumnVarNameInTable="columnPImg" msprop:Generator_ColumnPropNameInRow="PImg" msprop:Generator_ColumnPropNameInTable="PImgColumn" msprop:Generator_UserColumnName="PImg" type="xs:base64Binary" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:product_table" />
+      <xs:field xpath="mstns:PId" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

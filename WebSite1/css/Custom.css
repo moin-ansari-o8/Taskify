@@ -1,0 +1,439 @@
+﻿/* Navbar styling */ 
+/* Change the separator color to light pink */
+.divider {
+    border-top: 1px solid #FFB6C1; /* Light pink color */
+    margin: 10px 0; /* Adjust the margin for better spacing */
+}
+ /* Add space between radio button list items */
+#rblSize .rb-list-item {
+    margin-right: 15px;  /* Add margin between the radio buttons */
+}
+/* Centering the container */
+
+
+/* Card container styling */
+
+
+/* Card product layout */
+.cart-card {
+    display: flex;
+    flex-direction: row;
+    border: none;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%; /* Ensure the card takes up full width of the parent */
+    background: linear-gradient(to top, #FAD0C4, #F8C8D1);
+    align-items: center; /* Center the content vertically */
+    box-sizing: border-box;
+    justify-content: space-between; /* Spread out columns evenly */
+}
+.checkbox-large {
+    transform: scale(2.5); /* Adjust size */
+    -webkit-transform: scale(2.5); /* For Safari */
+    -moz-transform: scale(2.5); /* For Firefox */
+    -ms-transform: scale(2.5); /* For IE */
+}
+
+.cart-card-body {
+    height: 35%; /* Content occupies the lower 35% of the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: pink; /* Gradient for the card body */
+    box-sizing: border-box; /* Include padding in height calculations */
+    border:none !important;
+}
+/* Column layout for cart items */
+.cart-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+/* Product image styling */
+.cart-column img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Product details styling */
+.cart-product-details {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.product-name {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.product-brand {
+    font-size: 18px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 16px;
+    color: #555;
+    margin-top: 15px;
+}
+
+/* Price and button styling */
+.buy-button {
+    background-color: #C8708D !important;
+    color: #FFFFFF !important;
+    border-radius: 5px !important;
+    text-align: center !important;
+    padding: 12px 18px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100px;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s !important;
+}
+
+.buy-button:hover {
+    background-color: #A05171 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Responsive design for mobile screens */
+@media (max-width: 768px) {
+    .cart-card {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-column {
+        width: 100%; /* Ensure columns take full width on smaller screens */
+        margin-bottom: 20px;
+    }
+
+    .cart-column img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .product-name {
+        font-size: 20px;
+    }
+
+    .product-brand {
+        font-size: 16px;
+    }
+
+    .buy-button {
+        width: auto;
+    }
+}
+
+
+.navbar {
+    background-color: #FAD0C4 !important; /* Blush color for navbar */
+    margin: 0 auto;
+    width: 100%;
+    top:0;
+}
+
+/* Button Styling */
+.btn-col {
+    background-color: #ae8890 !important;
+}
+
+/* Logo and Brand Name */
+.navbar-brand {
+    font-size: 1.8rem !important; /* Adjust the size for logo name */
+    font-weight: bold !important;
+    padding-left: 20px !important; /* 20px left padding for the logo and name */
+}
+
+.navbar-brand img {
+    height: 50px !important; /* Adjust the height for the logo image */
+}
+
+/* Align navigation links to the right */
+.navbar-nav {
+    margin-left: auto !important; /* Push navigation links to the right */
+    padding-right: 20px !important; /* 20px right padding for navigation items */
+}
+
+/* Styling for nav links */
+.navbar-nav .nav-link {
+    color: #5C3D58 !important; /* Darker pink for nav links */
+}
+
+.navbar-nav .nav-link:hover {
+    color: #FFFFFF !important; /* Lighter pink for hover effect */
+    background-color: #C8708D;
+}
+
+/* Dropdown Menu Background */
+.dropdown-menu {
+    background-color: #fbe5e0 !important; /* Lighter blush shade for the dropdown */
+    border: none !important; /* Remove default border */
+    border-radius: 5px !important; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1) !important; /* Subtle shadow for dropdown */
+}
+
+/* Dropdown Items */
+.dropdown-item {
+    color: #5C3D58 !important; /* Same as nav link color for consistency */
+    padding: 10px 20px !important; /* Add some spacing for better visuals */
+    transition: background-color 0.3s, color 0.3s !important; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect for Dropdown Items */
+.dropdown-item:hover {
+    color: #FFFFFF !important; /* Lighter pink for hover effect */
+    background-color: #C8708D !important;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .navbar-nav {
+        padding-right: 10px !important; /* Adjust padding for smaller screens */
+    }
+
+    .dropdown-item {
+        padding: 8px 15px !important; /* Reduce padding for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.5rem !important; /* Reduce font size for smaller screens */
+    }
+
+    .dropdown-item {
+        font-size: 0.9rem !important; /* Smaller font size for smaller screens */
+        padding: 6px 10px !important; /* Adjust padding */
+    }
+}
+
+/* Body background */
+/* Ensure the page fills the viewport height */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content wrapper to adjust content placement */
+form {
+    flex: 1; /* Allow the form to take remaining space */
+    
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    padding-bottom: 50px; /* Adjust for footer height if needed */
+}
+
+/* Footer styling */
+footer {
+    background-color: #FAD0C4; /* Matching blush color for footer */
+    color: #5C3D58; /* Darker pink text */
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer ul li a {
+    color: #af9a93; 
+    transition: color 0.3s;
+}
+
+footer ul li a:hover {
+    color: #5C3D58 ; 
+    text-decoration: underline;
+}
+
+.all-link
+{
+    color: #C8708D ; /* Even darker shade on hover */
+    transform: scale(1.05); /* Slight zoom effect for interactivity */
+    
+    }
+ .all-link:hover
+{
+    color: #A05171;
+    transform: scale(1.05); 
+    text-decoration: underline;
+    }
+/* Back to top button */
+
+.all-btn {
+    background-color: #C8708D !important; /* Darker blush color for the button */
+    color: #FFFFFF !important; /* White text for better contrast */
+    border-radius: 5px !important;
+    text-align: center !important;
+    margin:4px !important;
+    padding: 10px !important;
+    transition: background-color 0.3s, transform 0.2s !important;
+}
+
+.all-btn:hover {
+    background-color: #A05171 !important; /* Even darker shade on hover */
+    transform: scale(1.05) !important; /* Slight zoom effect for interactivity */
+}
+
+
+/* Additional styling to adjust text and spacing */
+.container {
+    margin-top: 20px;
+}
+
+.container h5 {
+    font-weight: bold;
+    color: #5C3D58; /* Darker pink for headings */
+}
+
+.container p {
+    color: #5C3D58; /* Darker pink for paragraph text */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures all cards have the same height */
+    border: none;
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+.card-img-container {
+    height: 65%; /* Fixed height for the image container */
+    position: relative;
+    overflow: hidden; /* Ensures images don't overflow */
+}
+
+.card-img-top {
+    height: 100%; /* Ensures the image occupies the full height of the container */
+    width: 100%; /* Ensures the image occupies the full width of the container */
+    object-fit: cover; /* Ensures the image covers the container proportionally without distortion */
+    object-position: center; /* Centers the image within the container */
+}
+
+.card-body {
+    height: 35%; /* Ensures the body occupies the remaining 35% */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    background: linear-gradient(to bottom, #FAD0C4, #F8C8D1); /* Gradient background */
+    box-sizing: border-box; /* Includes padding in height calculations */
+}
+
+.card-title {
+    font-size: 1.25rem; /* Font size for the card title */
+    margin-bottom: 10px;
+    text-align: center;
+    word-wrap: break-word; /* Prevents overflow for long text */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Font size for the description */
+    text-align: center; /* Center-align the description */
+    margin-bottom: 10px; /* Spacing below the description */
+    word-wrap: break-word; /* Prevents overflow for long text */
+}
+
+.card-body .btn {
+    align-self: center; /* Centers the button horizontally */
+    margin-top: auto; /* Pushes the button to the bottom */
+    width: 80%; /* Responsive width */
+    max-width: 200px; /* Limits the button's maximum width */
+    padding: 10px; /* Adds padding for better visuals */
+    margin-bottom: 10px; /* Adds spacing from the bottom border */
+    box-sizing: border-box; /* Maintains consistent box-sizing */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 10px; /* Reduces padding for smaller screens */
+    }
+
+    .card-title {
+        font-size: 1rem; /* Adjusts font size for smaller screens */
+    }
+
+    .card-text {
+        font-size: 0.8rem; /* Adjusts font size for smaller screens */
+    }
+
+    .card-body .btn {
+        width: 90%; /* Increases button width for smaller screens */
+        padding: 8px; /* Adjusts button padding */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        height: auto; /* Allows the card height to adjust on very small screens */
+    }
+
+    .card-img-container {
+        height: auto; /* Allows the image container to shrink */
+    }
+
+    .card-img-top {
+        height: auto; /* Ensures the image resizes proportionally */
+    }
+
+    .card-body {
+        padding: 8px; /* Reduces padding further for very small screens */
+    }
+
+    .card-title {
+        font-size: 0.9rem; /* Smaller font size for titles */
+    }
+
+    .card-text {
+        font-size: 0.75rem; /* Smaller font size for descriptions */
+    }
+
+    .card-body .btn {
+        width: 100%; /* Button takes full width on small screens */
+        padding: 6px; /* Reduces button padding */
+    }
+}
+
+
+/* Carousel container */
+.carousel {
+    height: 550px;
+    margin: 0 auto; /* Center the carousel horizontally */
+}
+
+/* Carousel inner container */
+.carousel-inner {
+ /* Ensure the carousel-inner fills the carousel container */
+    height: 100%;
+     /* Hide any content that overflows */
+}
+
+/* Carousel items */
+.carousel-item img {
+    width: 100%; /* Make sure the images fill the carousel item container */
+    
+    object-fit: cover; /* Ensure the image covers the container without stretching */
+} 

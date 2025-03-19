@@ -1,0 +1,539 @@
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 1
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+
+Request Start: Array
+(
+    [action] => remove_trekker
+    [index] => 0
+)
+
+Session Cart: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [slot_date] => 2025-10-01
+    [original_num_people] => 2
+    [trekkers] => Array
+        (
+            [0] => Array
+                (
+                    [name] => klamar12
+                    [phone] => 9988776655
+                    [age] => 37
+                    [gender] => 
+                )
+
+            [1] => Array
+                (
+                    [name] => shreyu
+                    [phone] => 9537063964
+                    [age] => 20
+                    [gender] => Male
+                )
+
+        )
+
+    [rental_gear] => Array
+        (
+        )
+
+)
+
+Response: Array
+(
+    [success] => 1
+    [trekkersHtml] =>     <div class="card" data-index="0">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> klamar12<br>
+                <strong>Phone:</strong> 9988776655<br>
+                <strong>Age:</strong> 37<br>
+                <strong>Gender:</strong> Not specified            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="0">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+        <div class="card" data-index="1">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <strong>Name:</strong> shreyu<br>
+                <strong>Phone:</strong> 9537063964<br>
+                <strong>Age:</strong> 20<br>
+                <strong>Gender:</strong> Male            </div>
+            <form method="POST" class="d-inline remove-trekker-form">
+                <input type="hidden" name="action" value="remove_trekker">
+                <input type="hidden" name="index" value="1">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form>
+        </div>
+    </div>
+    
+    [warningsHtml] => 
+    [numPeople] => 2
+    [trekCost] => 2,400.00
+    [totalCost] => 2,400.00
+    [totalCostRaw] => 2400
+)
+

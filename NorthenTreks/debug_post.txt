@@ -1,0 +1,310 @@
+Script started: 2025-03-09 19:30:11
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 19:30:16
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 19:32:58
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 19:33:02
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 19:42:17
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 19:42:21
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 19:45:07
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 19:45:11
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 19:49:29
+POST Data at Start: Array
+(
+    [trek_id] => 2
+    [slot_id] => 3
+    [num_people] => 1
+    [slot_date] => 2025-06-05
+    [rental_gear] => []
+    [total_cost] => 1200
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 19:49:33
+POST Data at Start: Array
+(
+    [trek_id] => 2
+    [slot_id] => 3
+    [num_people] => 1
+    [slot_date] => 2025-06-05
+    [rental_gear] => []
+    [total_cost] => 1200
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 20:03:48
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 20:03:53
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 20:16:09
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 20:16:14
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+)
+
+Passed initial check
+Processing payment method
+Payment validated, proceeding to process_payment.php
+Script started: 2025-03-09 20:35:45
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+)
+
+Passed initial check
+Rendering payment form
+Script started: 2025-03-09 20:35:57
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [authorize_payment] => 1
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+    [math_answer] => 15
+)
+
+Passed initial check
+Processing payment authorization
+Rendering payment form
+Script started: 2025-03-09 20:36:09
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [authorize_payment] => 1
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+    [math_answer] => 17
+)
+
+Passed initial check
+Processing payment authorization
+Rendering payment form
+Script started: 2025-03-09 20:36:22
+POST Data at Start: Array
+(
+    [trek_id] => 3
+    [slot_id] => 5
+    [num_people] => 2
+    [slot_date] => 2025-10-01
+    [rental_gear] => []
+    [total_cost] => 2400
+    [authorize_payment] => 1
+    [payment_method] => upi
+    [upi_id] => exmpl@oksbi
+    [card_number] => 
+    [expiry] => 
+    [cvv] => 
+    [bank] => 
+    [math_answer] => 12
+)
+
+Passed initial check
+Processing payment authorization
+Payment and challenge validated, proceeding to process_payment.php
